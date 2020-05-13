@@ -12,9 +12,53 @@
 <!-- Latest compiled JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 <script>
+	//텍스트 값 나타내는 함수 - 초기화 시킨 후 값 집어넣음
+	let helperInit = function(){
+		$('#idHelper').text("");
+		$('#pwHelper').text("");
+		$('#nameHelper').text("");
+		$('#addrHelper').text("");
+		$('#phoneHelper').text("");
+		$('#emailHelper').text("");
+	};
+	
+	//document
 	$(document).ready(function(){
 		$('#btn').click(function(){
-			$('#myForm').submit();
+			if($('#memberId').val().length < 4){
+				// helperInit 함수 호출 - 초기화상태
+				helperInit();
+				// idHelper에 값 넣어줌
+				$('#idHelper').text("ID는 4자 이상");
+				// 커서가 memberId라는 id를 가진 text창으로 이동
+				$('#memberId').focus();	
+			}else if($('#memberPw').val().length < 4){
+				helperInit(); //값이 다시 초기화 됨
+				$('#pwHelper').text("PW는 4자 이상");
+				$('#memberPw').focus();
+			} else if($('#memberPw').val() != $('#memberPw2').val()) {
+				helperInit();
+				$('#pwHelper').text("PW를 확인 하세요");
+				$('#memberPw').focus();
+			} else if($('#memberName').val() == "") {
+				helperInit();
+				$('#nameHelper').text("이름을 입력 하세요");
+				$('#memberName').focus();
+			} else if($('#memberAddr').val() == "") {
+				helperInit();
+				$('#addrHelper').text("주소를 입력 하세요");
+				$('#memberAddr').focus();
+			} else if($('#memberPhone').val() == "") {
+				helperInit();
+				$('#phoneHelper').text("전화번호를 입력 하세요");
+				$('#memberPhone').focus();
+			} else if($('#memberEmail').val() == "") {
+				helperInit();
+				$('#emailHelper').text("이메일을 입력 하세요");
+				$('#memberEmail').focus();
+			}else{
+				$('#myForm').submit();
+			}
 		});
 	});
 </script>
