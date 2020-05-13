@@ -17,7 +17,14 @@
 	<div align="center">
 		<h1 class="m-5">Cash Book</h1>
 		<br><br>
-		<a href="/login" type="button" class="btn btn-primary col-sm-4">로그인</a>
+		<!-- session값을 불러와 값이 있다면 로그인 중 = 로그아웃 버튼만 보임 -->
+		<div th:if="${session.loginMember != null}">
+			<a href="/logout" type="button" class="btn btn-primary col-sm-4">로그아웃</a>
+		</div>
+		<!-- null이면 로그인 버튼 보임 -->
+		<div th:if="${session.loginMember == null}">
+			<a href="/login" type="button" class="btn btn-primary col-sm-4">로그인</a>
+		</div>
 		<br><br><br>
 		<a href="/addMember" type="button" class="btn btn-primary col-sm-4">회원가입</a>
 		<br><br><br><br><br>

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>index</title>
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<!-- Popper JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+<script>
+	$(document).ready(function(){
+		$('#btn').click(function(){
+			$('#myForm').submit();
+		});
+	});
+</script>
+</head>
+<body>
+<div class="container-fluid">
+		<div class="row">
+			<div class="col-sm-5"></div>
+			<div class="col-sm-2">
+				<div align="center">
+					
+					<h1 class="m-6"><strong>회원가입</strong></h1><br><br>
+					
+					<form id="myForm" method="post" action="/addMember">
+						<div class="form-group">
+							<div align="left">
+								<label>아이디</label>
+							</div>
+							<div>
+								<input type="text" name="memberId" id="memberId" class="form-control" placeholder="ID 입력" th:value="${memberIdCheck}">
+								<!-- 메세지 출력 -->
+								<span id="idHelper"></span>
+							</div>
+						</div>
+						<div class="form-group">
+							<div align="left">
+								<label>비밀번호</label>
+							</div>
+							<div>  
+								<input type="password" name="memberPw" id="memberPw" class="form-control" placeholder="PW 입력">
+								<span id="pwHelper"></span>
+							</div>
+						</div>
+						<div class="form-group">
+							<div align="left">
+								<label>비밀번호 확인</label>
+							</div>
+							<div>
+								<input type="password" id="memberPw2" class="form-control" placeholder="PW 확인">
+							</div>
+						</div>
+						<div class="form-group">
+							<div align="left">
+								<label>사용자 이름</label>
+							</div>
+							<div>
+								<input type="text" name="memberName" id="memberName" class="form-control" placeholder="이름 입력">
+								<span id="nameHelper"></span>
+							</div>
+						</div>
+						<div class="form-group">
+							<div align="left">
+								<label>주소</label>
+							</div>
+							<div>
+								<input type="text" name="memberAddr" id="memberAddr" class="form-control" placeholder="주소 입력">
+								<span id="addrHelper"></span>
+							</div>
+						</div>
+						<div class="form-group">
+							<div align="left">
+								<label>전화번호</label>
+							</div>
+							<div>
+								<input type="text" name="memberPhone" id="memberPhone" class="form-control" placeholder="전화번호 입력">
+								<span id="phoneHelper"></span>
+							</div>
+						</div>
+						<div class="form-group">
+							<div align="left">
+								<label for="email">이메일</label>
+							</div>
+							<div>
+								<input type="text" name="memberEmail" id="memberEmail" class="form-control" placeholder="Email 입력">
+								<span id="emailHelper"></span>
+							</div>
+						</div>
+						<br>
+						<div>
+							<button type="button" id="btn" class="btn btn-primary btn-block">회원가입</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
