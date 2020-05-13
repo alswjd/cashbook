@@ -60,6 +60,9 @@
 				$('#myForm').submit();
 			}
 		});
+		$('#idBtn').click(function(){
+			$('#idForm').submit();
+		});
 	});
 </script>
 </head>
@@ -72,6 +75,19 @@
 					
 					<h1 class="m-6"><strong>회원가입</strong></h1><br><br>
 					
+					<!-- 아이디 중복 확인 -->
+					<form id="idForm" method="post" action="checkMemberId">
+						<div>
+							<div align="left">
+								<label>아이디 중복 확인</label>&nbsp;&nbsp;&nbsp;<button type="button" id="idBtn">중복체크</button>
+								<span th:text="${msg}"></span>
+							</div> 
+							<div>
+								<input type="text" id="memberIdCheck" name="memberIdCheck" class="form-control">
+							</div>
+						</div>
+					</form>
+					<!-- 회원가입 폼 -->
 					<form id="myForm" method="post" action="/addMember">
 						<div class="form-group">
 							<div align="left">

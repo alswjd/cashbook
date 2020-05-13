@@ -4,8 +4,10 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.gdu.cashbook.service.MemberService;
 import com.gdu.cashbook.vo.LoginMember;
@@ -16,6 +18,29 @@ public class MemberController {
 	//객체를 자동으로 주입
 	@Autowired
 	private MemberService memberService;
+	
+	//중복되는 아이디
+	@PostMapping("/checkMemberId")
+	public String checkMemberId(HttpSession session, Model model, @RequestParam("memberIdCheck") String memberIdCheck) {
+		//로그인 된 아이디가 있으면 redirect
+		if(session.getAttribute("loginMember") != null) {
+			return "redirect:/";
+		}
+		
+		//입력받는 값을 테이블 값과 비교한 후 confirmMemberId에 넣음 
+		String confirmMemberId = memberService.checkMemberId(memberIdCheck);
+		
+		if(confirmMemberId != null) {
+			//아이디를 사용할 수 없습니다.
+			model.addAttribute("msg", "사용중인 아이디입니다.");
+		}else {
+			//아이디를 사용할 수 있습니다.
+			model.addAttribute("memberIdCheck",memberIdCheck);
+		}
+		
+		//포워딩
+		return "addMember"; 
+	}
 	
 	//로그인 폼 - login.html 연결
 	@GetMapping("/login")
