@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>index</title>
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<!-- Popper JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+<script>
+	//text 보여주는 함수 - 초기화 시킴
+	let helperInit = function(){
+		$('#idHelper').text("");
+		$('#pwHelper').text("");
+	};
+	
+	//document
+	$(document).ready(function(){
+		$('#btn').click(function(){
+			//로그인 값 유호성 검사
+			if($('#memberId').val() == ""){
+				//함수
+				helperInit();
+				//text 값 새로 넣음
+				$('#idHelper').text("아이디를 입력하세요.");
+				//마우스 커서
+				$('#memberId').focus();
+				//형식이 맞지 않으면 더이상 코드를 진행하지 않고 return
+				return;
+			}
+			if($('#memberPw').val() == ""){
+				helperInit();
+				$('#pwHelper').text("비밀번호를 입력하세요.");
+				$('#memberPw').focus();
+				return;
+			}
+			$('#loginForm').submit();
+		});
+	});
+</script>
+</head>
+<body>
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-sm-5"></div>
+			<div class="col-sm-2">
+				<div align="center">
+					<h1 class="m-5"><strong>로그인</strong></h1>
+					<!-- 로그인 폼 -->
+					<form id="loginForm" method="post" action="/login">
+						<div class="form-group">
+							<div>
+								<label></label>
+							</div>
+							<div>
+								<input type="text" id="memberId" name="memberId" class="form-control" placeholder="아이디">
+								<span id="idHelper"></span>
+							</div>
+						</div>
+						<div class="form-group">
+							<div>
+								<label></label>
+							</div>
+							<div>
+								<input type="password" id="memberPw" name="memberPw" class="form-control" placeholder="비밀번호">
+								<span id="pwHelper"></span>
+							</div>
+						</div>
+						<div>
+							<span th:text="${msg}"></span>
+						</div>
+						<br><br>
+						<div>
+							<button type="button" id="btn" class="btn btn-primary btn-block">로그인</button>
+						</div>
+					</form>
+					<br>
+					<div>
+						<a href="/addMember" type="button" class="btn btn-primary btn-block">회원가입</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
