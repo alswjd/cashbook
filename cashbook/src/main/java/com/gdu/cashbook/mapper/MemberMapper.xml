@@ -11,18 +11,18 @@
          member_phone as memberPhone,
          member_addr as memberAddr,
          member_email as memberEmail
-      FROM
-         member
-      WHERE
-         member_id= #{memberId} 
+      FROM member
+      WHERE member_id= #{memberId} 
 	</select>
 	
 	<!-- 아이디 중복 -->
 	<select id="selectMemberId" parameterType="String" resultType="String">
 		SELECT
-			member_id memberId
-		FROM member
-		WHERE member_id = #{memberId}
+			member_id
+		FROM (SELECT member_id FROM member 
+			  UNION
+			  SELECT member_id FROM memberid) t
+		WHERE member_id = #{memberIdCheck}
 	</select>
 	
 	<!-- select login member -->
