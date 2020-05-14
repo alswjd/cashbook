@@ -8,7 +8,7 @@ import com.gdu.cashbook.vo.Member;
 @Mapper
 public interface MemberMapper {
 	//회원정보
-	public Member selectMemberOne(LoginMember loginMember);
+	public Member selectMemberOne(LoginMember loginMember); 
 	//아이디 중복 체크
 	public String selectMemberId(String memberIdCheck);
 	//로그인

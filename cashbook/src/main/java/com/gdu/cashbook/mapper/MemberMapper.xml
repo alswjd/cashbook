@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
 	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.gdu.cashbook.mapper.MemberMapper">
+<mapper namespace="com.gdu.cashbook.mapper.MemberMapper">  
 	<!-- 회원정보 -->
 	<select id="selectMemberOne" parameterType="com.gdu.cashbook.vo.LoginMember" resultType="com.gdu.cashbook.vo.Member">
 		SELECT 
@@ -32,7 +32,7 @@
 			member_pw as memberPw
 		FROM member
 		WHERE member_id = #{memberId}
-		AND member_pw = #{memberPw}
+		AND member_pw = PASSWORD(#{memberPw})
 	</select>
 	
 	<!-- insert member -->
@@ -46,7 +46,8 @@
 			member_email		
 		)VALUES(
 			#{memberId}, 
-			#{memberPw}, 
+			<!-- password 암호화 -->
+			PASSWORD(#{memberPw}), 
 			#{memberName}, 
 			#{memberAddr}, 
 			#{memberPhone}, 

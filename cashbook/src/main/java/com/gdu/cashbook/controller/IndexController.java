@@ -20,7 +20,6 @@ public class IndexController {
 		if(session.getAttribute("loginMember") == null) {
 			return "redirect:/login";
 		}
-		
 		return "home";
 	}
 }

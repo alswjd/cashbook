@@ -15,6 +15,7 @@ public class MemberService {
 	@Autowired
 	private MemberMapper memberMapper;
 	
+	
 	//회원정보
 	public Member selectgetMemberOne(LoginMember loginMember) {
 		return memberMapper.selectMemberOne(loginMember);

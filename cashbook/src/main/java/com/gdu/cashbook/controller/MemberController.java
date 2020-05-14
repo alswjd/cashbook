@@ -19,7 +19,7 @@ public class MemberController {
 	@Autowired
 	private MemberService memberService;
 	
-	//회원정보
+	//회원정보 출력
 	@GetMapping("memberInfo")
 	public String memberInfo(HttpSession session, Model model) {
 		//로그인되어 있지 않다면 login뷰로 redirect

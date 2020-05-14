@@ -15,7 +15,7 @@
 	//text 보여주는 함수 - 초기화 시킴
 	let helperInit = function(){
 		$('#idHelper').text("");
-		$('#pwHelper').text("");
+		$('#pwHelper').text(""); 
 	};
 	
 	//document
@@ -32,6 +32,7 @@
 				//형식이 맞지 않으면 더이상 코드를 진행하지 않고 return
 				return;
 			}
+			
 			if($('#memberPw').val() == ""){
 				helperInit();
 				$('#pwHelper').text("비밀번호를 입력하세요.");
