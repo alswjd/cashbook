@@ -19,6 +19,24 @@ public class MemberController {
 	@Autowired
 	private MemberService memberService;
 	
+	//회원정보
+	@GetMapping("memberInfo")
+	public String memberInfo(HttpSession session, Model model) {
+		//로그인되어 있지 않다면 login뷰로 redirect
+		if(session.getAttribute("loginMember") == null) {
+			return "redirect:/login";
+		}
+		
+		//session : object 값 -> LoginMember 형태로 형변환
+		Member member = this.memberService.selectgetMemberOne((LoginMember)(session.getAttribute("loginMember")));
+		System.out.println(member + "<== member");
+		
+		//model :데이터 넘겨줌
+		model.addAttribute("member",member);
+		
+		return "memberInfo";
+	}
+	
 	//중복되는 아이디
 	@PostMapping("/checkMemberId")
 	public String checkMemberId(HttpSession session, Model model, @RequestParam("memberIdCheck") String memberIdCheck) {
@@ -59,11 +77,11 @@ public class MemberController {
 		//로그인 했을 때 아이디와 비밀번호 가 일치하지 않으면
 		if(returnLoginMember == null) {
 			//다시 login 뷰 연결
-			return "login";
+			return "redirect:/login";
 		}else { //일치한다면
 			//redirect
 			session.setAttribute("loginMember", returnLoginMember);
-			return "redirect:/index";
+			return "redirect:/home";
 		}
 	}
 	
