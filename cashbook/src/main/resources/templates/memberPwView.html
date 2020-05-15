@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<title>index</title>
+<title>Insert title here</title>
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
 <!-- jQuery library -->
@@ -13,25 +13,7 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 </head>
 <body>
-<div class="container">
-	<h1>아이디 찾기</h1>
-	<form id="myForm" method="post" th:action="@{/fingMembreId}">
-		<div>
-			member_name
-			<input type="text" id="memberName" name="memberName">
-		</div>
-		<div>
-			member_phone
-			<input type="text" id="memberPhone" name="memberPhone">
-		</div>
-		<div>
-			member_email
-			<input type="text" id="memberEmail" name="memberEmail">
-		</div>
-		<div>
-			<button type="submit" id="findBtn">찾기</button>
-		</div>	
-	</form>
-</div>
+	<h1>비밀번호 찾기</h1>
+	<div th:text="${msg}"></div>
 </body>
-</html>
+</html> 

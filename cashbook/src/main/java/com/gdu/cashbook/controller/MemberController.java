@@ -24,11 +24,13 @@ public class MemberController {
 	@PostMapping("/findMemberPw")
 	public String findMemberPw(HttpSession session,Member member, Model model) {
 		int row = memberService.getMemberPw(member);
+		
 		String msg = "아이디와 메일을 확인하세요";
 		if(row == 1) {
 			msg = "비밀번호를 메일로 전송하였습니다";
 		}
 		model.addAttribute("msg", msg);
+		
 		return "memberPwView";
 	}
 	
@@ -71,11 +73,14 @@ public class MemberController {
 	
 	//회원탈퇴 폼
 	@GetMapping("/removeMember")
-	public String removeMember(HttpSession session) {
+	public String removeMember(HttpSession session, LoginMember loginMember) {
 		//로그인 되어 있지 않으면 index로 redirect
 		if(session.getAttribute("loginMember") == null) {
 			return "redirect:/";
 		}
+		
+		String memberPw = ((LoginMember)(session.getAttribute("loginMember"))).getMemberPw();
+		System.out.println(memberPw +"<==memberpw");
 		
 		return "removeMember"; //input type="password" name="memberPw"
 	}
@@ -122,7 +127,7 @@ public class MemberController {
 		if(session.getAttribute("loginMember") == null) {
 			return "redirect:/index";
 		}
-		
+		System.out.println(member);
 		memberService.updateMember(member);
 		
 		//수정한 후에 다시 수정했던 정보 보여줌

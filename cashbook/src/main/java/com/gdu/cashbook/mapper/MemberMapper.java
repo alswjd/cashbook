@@ -9,7 +9,7 @@ import com.gdu.cashbook.vo.Memberid;
 @Mapper
 public interface MemberMapper {
 	//비밀번호 찾기
-	public Member selectMemberByIdAndEmail(Member member);
+	public int updateMemberPw(Member member);
 	//아이디 찾기
 	public String selectMemberIdbyMember(Member member);
 	//회원 탈퇴
