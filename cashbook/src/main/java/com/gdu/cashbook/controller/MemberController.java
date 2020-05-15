@@ -19,8 +19,119 @@ public class MemberController {
 	@Autowired
 	private MemberService memberService;
 	
+	
+	//비밀번호 찾기 액션
+	@PostMapping("/findMemberPw")
+	public String findMemberPw(HttpSession session,Member member, Model model) {
+		int row = memberService.getMemberPw(member);
+		String msg = "아이디와 메일을 확인하세요";
+		if(row == 1) {
+			msg = "비밀번호를 메일로 전송하였습니다";
+		}
+		model.addAttribute("msg", msg);
+		return "memberPwView";
+	}
+	
+	//비밀번호 찾기
+	@GetMapping("/findMemberPw")
+	public String findMemberPw(HttpSession session) {
+		//로그인 되어 있지 않아야 한다
+		if(session.getAttribute("loginMember") != null) {
+			return "redirect:/";
+		}
+		
+		return "findMemberPw";
+	}
+	
+	//아이디 찾기
+	@GetMapping("/findMemberId")
+	public String findMemberId(HttpSession session) {
+		//로그인 되어 있지 않아야 한다
+		if(session.getAttribute("loginMember") != null) {
+			return "redirect:/";
+		}
+		
+		return "findMemberId";
+	}
+	
+	//아이디 찾기 액션
+	@PostMapping("/findMemberId")
+	public String findMemberId(HttpSession session, Model model, Member member) {
+		//로그인 되어 있지 않아야 한다
+		if(session.getAttribute("loginMember") != null) {
+			return "redirect:/";
+		}
+		
+		String memberIdPart = memberService.getMemberIdByMember(member);
+		System.out.println(memberIdPart+"<==memberIdPart");
+		model.addAttribute("memberIdPart", memberIdPart);
+		
+		return "memberIdView";
+	}
+	
+	//회원탈퇴 폼
+	@GetMapping("/removeMember")
+	public String removeMember(HttpSession session) {
+		//로그인 되어 있지 않으면 index로 redirect
+		if(session.getAttribute("loginMember") == null) {
+			return "redirect:/";
+		}
+		
+		return "removeMember"; //input type="password" name="memberPw"
+	}
+	
+	//회원탈퇴 액션
+	@PostMapping("/removeMember")
+	public String removeMember(HttpSession session, @RequestParam("memberPw") String memberPw) {
+		//로그인 되어 있지 않으면 index로 redirect
+		if(session.getAttribute("loginMember") == null) {
+			return "redirect:/index";
+		}
+		
+		LoginMember loginMember = (LoginMember)(session.getAttribute("loginMember"));
+		loginMember.setMemberPw(memberPw);
+		
+		memberService.removeMember(loginMember);
+		
+		session.invalidate();
+		
+		return "redirect:/index";
+	}
+	
+	//회원정보 수정 폼
+	@GetMapping("/updateMember")
+	public String updateMember(HttpSession session, Model model) {
+		//로그인 되어 있지 않으면 index로 redirect
+		if(session.getAttribute("loginMember") == null) {
+			return "redirect:/index";
+		}
+		
+		//session
+		Member m = this.memberService.selectgetMemberOne((LoginMember)(session.getAttribute("loginMember")));
+		
+		//model
+		model.addAttribute("m", m);
+		
+		return "updateMember";
+	}
+	
+	//회원정보 수정 액션
+	@PostMapping("/updateMember")
+	public String updateMember(HttpSession session, Member member) {
+		//로그인 되어 있지 않으면 index로 redirect
+		if(session.getAttribute("loginMember") == null) {
+			return "redirect:/index";
+		}
+		
+		memberService.updateMember(member);
+		
+		//수정한 후에 다시 수정했던 정보 보여줌
+		return "redirect:/memberInfo";
+	}
+	
+	
 	//회원정보 출력
-	@GetMapping("memberInfo")
+	@GetMapping("/memberInfo")
 	public String memberInfo(HttpSession session, Model model) {
 		//로그인되어 있지 않다면 login뷰로 redirect
 		if(session.getAttribute("loginMember") == null) {
@@ -81,7 +192,7 @@ public class MemberController {
 		}else { //일치한다면
 			//redirect
 			session.setAttribute("loginMember", returnLoginMember);
-			return "redirect:/home";
+			return "home";
 		}
 	}
 	

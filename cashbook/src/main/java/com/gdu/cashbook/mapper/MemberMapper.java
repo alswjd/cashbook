@@ -4,9 +4,18 @@ import org.apache.ibatis.annotations.Mapper;
 
 import com.gdu.cashbook.vo.LoginMember;
 import com.gdu.cashbook.vo.Member;
+import com.gdu.cashbook.vo.Memberid;
 
 @Mapper
 public interface MemberMapper {
+	//비밀번호 찾기
+	public Member selectMemberByIdAndEmail(Member member);
+	//아이디 찾기
+	public String selectMemberIdbyMember(Member member);
+	//회원 탈퇴
+	public int deleteMember(LoginMember loginMember);
+	//회원정보 수정
+	public int updateMember(Member member);
 	//회원정보
 	public Member selectMemberOne(LoginMember loginMember); 
 	//아이디 중복 체크

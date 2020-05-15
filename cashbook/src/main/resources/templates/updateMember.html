@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<!-- Popper JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+<script>
+	let helperInit = function(){
+		$('#addrHelper').text("");
+		$('#phoneHelper').text("");
+		$('#emailHelper').text("");
+		$('#pwHelper').text("");
+		$('#pw2Helper').text("");
+	};
+
+	$(document).ready(function(){
+		$('#updateBtn').click(function(){
+			if($('#memberAddr').val() == ""){
+				helperInit();
+				$('#addrHelper').text("주소를 입력하세요.");
+				$('#memberAddr').focus();
+				return;
+			}
+			
+			if($('#memberPhone').val() == ""){
+				helperInit();
+				$('#phoneHelper').text("전화번호를 입력하세요.");
+				$('#memberPhone').focus();
+				return;
+			}
+			
+			if($('#memberEmail').val() == ""){
+				helperInit();
+				$('#emailHelper').text("이메일을 입력하세요.");
+				$('#memberEmail').focus();
+				return;
+			}
+			
+			if($('#memberPw').val().length != 0 && $('#memberPw').val().length < 4){
+				helperInit();
+				$('#pwHelper').text("비밀번호는 4자 이상입니다.");
+				$('#memberPw').focus();
+				return;
+			}
+			
+			if($('#memberPw').val() != $('#memberPw2').val()){
+				helperInit();
+				$('#pw2Helper').text("비밀번호를 확인하세요.");
+				$('#memberPw').focus();
+				return;
+			}
+			
+			 $('#updateForm').submit();
+		});
+	});
+</script>
+</head>
+<body>
+<div class=container>
+   <h1>Update Member</h1>
+   <!-- menu에서 fragment 불러옴 -->
+   <div th:include="/include/menu::sidemenu"></div>
+   <form id="updateForm" method="post" action="/updateMember">
+	   <table class="table table-striped">
+	      <tr>
+	         <td>아이디</td>
+	         <td th:text="${m.memberId}" id="memberId" name="memberId"></td>
+	      </tr>
+	      <tr>
+	         <td>주소</td>
+	         <td><input type="text" th:value="${m.memberAddr}" id="memberAddr" name="memberAddr"><span id="addrHelper"></span></td>
+	      </tr>
+	      <tr>
+	         <td>전화번호</td>
+	         <td><input type="text" th:value="${m.memberPhone}" id="memberPhone" name="memberPhone"><span id="phoneHelper"></span></td>
+	      </tr>
+	      <tr>
+	         <td>이메일</td>
+	         <td><input type="text" th:value="${m.memberEmail}" id="memberEmail" name="memberEmail"> <span id="emailHelper"></span></td>
+	      </tr>
+	      <tr>
+	         <td>비밀번호</td>
+	         <td><input type="password" id="memberPw" name="memberPw"><span id="pwHelper"></span></td>
+	      </tr>
+	      <tr>
+	         <td>비밀번호 확인 </td>
+	         <td><input type="password" id="memberPw2"><span id="pw2Helper"></span></td>
+	      </tr>
+	   </table>
+	   <div>
+	      <button type="button" class="btn btn-primary" id="updateBtn">정보 수정</button>
+	   </div>
+	</form>
+</div>
+
+</body>
+</html>

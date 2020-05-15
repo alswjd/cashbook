@@ -13,7 +13,25 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 </head>
 <body>
-   <h1>home</h1>
-   <div th:include="/include/menu::sidemenu"></div>
+<div class="container">
+	<h1>아이디 찾기</h1>
+	<form id="myForm" method="post" th:action="@{/fingMembreId}">
+		<div>
+			member_name
+			<input type="text" id="memberName" name="memberName">
+		</div>
+		<div>
+			member_phone
+			<input type="text" id="memberPhone" name="memberPhone">
+		</div>
+		<div>
+			member_email
+			<input type="text" id="memberEmail" name="memberEmail">
+		</div>
+		<div>
+			<button type="button" id="findBtn">찾기</button>
+		</div>	
+	</form>
+</div>
 </body>
 </html>
