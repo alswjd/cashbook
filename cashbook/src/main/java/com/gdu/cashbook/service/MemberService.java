@@ -32,14 +32,35 @@ public class MemberService {
 	public int updateMember(MemberForm memberForm) {
 		//memberForm -> member
 		MultipartFile mf = memberForm.getMemberPic();
-		
 		//확장자
 		String originName = mf.getOriginalFilename();
-		int lastDot = 
+		int lastDot = originName.lastIndexOf(".");
+		String exetention = originName.substring(lastDot);
+		String memberPic = memberForm.getMemberId() + exetention;
 		
+		//db에 저장
+		Member member = new Member();
+		member.setMemberId(memberForm.getMemberId());
+		member.setMemberPw(memberForm.getMemberPw());
+		member.setMemberAddr(memberForm.getMemberAddr());
+		member.setMemberEmail(memberForm.getMemberEmail());
+		member.setMemberName(memberForm.getMemberName());
+		member.setMemberPhone(memberForm.getMemberPhone());
+		member.setMemberPic(memberPic);
 		
+		int row = memberMapper.updateMember(member);
 		
-		return memberMapper.updateMember(member);
+		//2.파일 저장 
+		String path = "C:\\mj___\\stsSTS\\maven.1589424312961\\cashbook\\src\\main\\resources\\static\\upload\\";
+		File file = new File(path + memberPic);
+		try {
+			mf.transferTo(file);
+		} catch (Exception e) { //예외가 발생해야 트렌젝션 처리 가능
+			e.printStackTrace();
+			throw new RuntimeException();
+		}
+		
+		return row;
 	}
 	
 	//회원가입 - insert(add)

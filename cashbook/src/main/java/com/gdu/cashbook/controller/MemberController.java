@@ -20,6 +20,57 @@ public class MemberController {
 	@Autowired
 	private MemberService memberService;
 	
+
+	//회원정보 수정 액션
+	@PostMapping("/updateMember")
+	public String updateMember(HttpSession session, MemberForm memberForm) {
+		//로그인 되어 있지 않으면 index로 redirect
+		if(session.getAttribute("loginMember") == null) {
+			return "redirect:/index";
+		}
+		System.out.println(memberForm);
+		
+		if(memberForm.getMemberPic() != null) {
+			if(!memberForm.getMemberPic().getContentType().equals("image/jpeg") 
+					&& !memberForm.getMemberPic().getContentType().equals("image/png")
+						&& !memberForm.getMemberPic().getContentType().equals("image/gif")) {
+				return "redirect:/updateMember";
+			}
+		}
+		
+		memberService.updateMember(memberForm);
+		
+		//수정한 후에 다시 수정했던 정보 보여줌
+		return "redirect:/memberInfo";
+	}
+	
+
+	//회원가입 액션
+	@PostMapping("/addMember")
+	public String addMember(MemberForm memberForm,HttpSession session) {
+		//로그인 된 아이디가 있으면 redirect
+		if(session.getAttribute("loginMember") != null) {
+			return "redirect:/";
+		}
+	
+		//memberForm
+		//service : memberForm -> member + 폴더에 파일 저장
+		System.out.println(memberForm+"<--form");
+		
+		//이미지 확장자 검사 (jpg / png / gif만 업로드 가능)
+		if(memberForm.getMemberPic() != null) {
+			if(!memberForm.getMemberPic().getContentType().equals("image/jpeg") 
+					&& !memberForm.getMemberPic().getContentType().equals("image/png")
+						&& !memberForm.getMemberPic().getContentType().equals("image/gif")) {
+				return "redirect:/addMember";
+			}
+		}
+		
+		memberService.addMember(memberForm);
+		//데이터를 insert 한 후 redirect
+		
+		return "redirect:/index";
+	}
 	
 	//비밀번호 찾기 액션
 	@PostMapping("/findMemberPw")
@@ -125,20 +176,6 @@ public class MemberController {
 		return "updateMember";
 	}
 	
-	//회원정보 수정 액션
-	@PostMapping("/updateMember")
-	public String updateMember(HttpSession session, Member member) {
-		//로그인 되어 있지 않으면 index로 redirect
-		if(session.getAttribute("loginMember") == null) {
-			return "redirect:/index";
-		}
-		System.out.println(member);
-		memberService.updateMember(member);
-		
-		//수정한 후에 다시 수정했던 정보 보여줌
-		return "redirect:/memberInfo";
-	}
-	
 	
 	//회원정보 출력
 	@GetMapping("/memberInfo")
@@ -225,30 +262,4 @@ public class MemberController {
 		return "addMember";
 	}
 	
-	//회원가입 액션
-	@PostMapping("/addMember")
-	public String addMember(MemberForm memberForm,HttpSession session) {
-		//로그인 된 아이디가 있으면 redirect
-		if(session.getAttribute("loginMember") != null) {
-			return "redirect:/";
-		}
-	
-		//memberForm
-		//service : memberForm -> member + 폴더에 파일 저장
-		System.out.println(memberForm+"<--form");
-		
-		//이미지 확장자 검사 (jpg / png / gif만 업로드 가능)
-		if(memberForm.getMemberPic() != null) {
-			if(!memberForm.getMemberPic().getContentType().equals("image/jpeg") 
-					&& !memberForm.getMemberPic().getContentType().equals("image/png")
-						&& !memberForm.getMemberPic().getContentType().equals("image/gif")) {
-				return "redirect:/addMember";
-			}
-		}
-		
-		memberService.addMember(memberForm);
-		//데이터를 insert 한 후 redirect
-		
-		return "redirect:/index";
-	}
 }
