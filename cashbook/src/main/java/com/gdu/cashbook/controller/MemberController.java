@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.gdu.cashbook.service.MemberService;
 import com.gdu.cashbook.vo.LoginMember;
 import com.gdu.cashbook.vo.Member;
+import com.gdu.cashbook.vo.MemberForm;
 
 @Controller
 public class MemberController {
@@ -211,15 +212,30 @@ public class MemberController {
 	
 	//회원가입 폼 - addMember.html 뷰로 연결
 	@GetMapping("/addMember")
-	public String addMember() {
+	public String addMember(HttpSession session) {
+		//로그인 된 아이디가 있으면 redirect
+		if(session.getAttribute("loginMember") != null) {
+			return "redirect:/";
+		}
+		
 		return "addMember";
 	}
 	
 	//회원가입 액션
 	@PostMapping("/addMember")
-	public String addMember(Member member) {
-		memberService.addMember(member);
+	public String addMember(MemberForm memberForm,HttpSession session) {
+		//로그인 된 아이디가 있으면 redirect
+		if(session.getAttribute("loginMember") != null) {
+			return "redirect:/";
+		}
+		
+		memberService.addMember(memberForm);
 		//데이터를 insert 한 후 redirect
+		
+		//memberForm
+		//service : memberForm -> member + 폴더에 파일 저장
+		System.out.println(memberForm+"<--form");
+		
 		return "redirect:/index";
 	}
 }

@@ -1,5 +1,7 @@
 package com.gdu.cashbook.service;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,11 +9,13 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.gdu.cashbook.mapper.MemberMapper;
 import com.gdu.cashbook.mapper.MemberidMapper;
 import com.gdu.cashbook.vo.LoginMember;
 import com.gdu.cashbook.vo.Member;
+import com.gdu.cashbook.vo.MemberForm;
 import com.gdu.cashbook.vo.Memberid;
 
 @Service
@@ -21,6 +25,60 @@ public class MemberService {
 	@Autowired private MemberMapper memberMapper;
 	@Autowired private MemberidMapper memberidMapper;
 	@Autowired private JavaMailSender javaMailSender; //@Component
+	
+	
+	//회원가입 - insert(add)
+	public int addMember(MemberForm memberForm) {
+		//memberForm -> member로 바꿔줌
+		//파일을 디스크에 물리적으로 저장
+		
+		MultipartFile mf = memberForm.getMemberPic();
+		//확장자 필요함
+		String originName = mf.getOriginalFilename();
+		/*
+			파일 확장자 유효성 검사
+			if(mf.getContentType().equals("image/png") || mf.getContentType().equals("image/png")) {
+				//업로드를 함
+				
+			}else {
+				//업로드 하지 않음
+				
+			}
+		*/
+		System.out.println(originName +"<==originName");
+		int lastDot = originName.lastIndexOf(".");
+		String extention = originName.substring(lastDot);
+		// 새로운 이름 생성 : UUID
+		String memberPic = memberForm.getMemberId() + extention;
+		
+		//1.db에 저장
+		Member member = new Member();
+		member.setMemberId(memberForm.getMemberId());
+		member.setMemberPw(memberForm.getMemberPw());
+		member.setMemberAddr(memberForm.getMemberAddr());
+		member.setMemberEmail(memberForm.getMemberEmail());
+		member.setMemberName(memberForm.getMemberName());
+		member.setMemberPhone(memberForm.getMemberPhone());
+		member.setMemberPic(memberPic);
+		
+		System.out.println(member+"<== MemberService.addMEmber:member");
+		int row = memberMapper.insertMember(member);
+		
+		//2.파일 저장 - static에 upload 파일 경로
+		String path = "C:\\mj___\\stsSTS\\maven.1589424312961\\cashbook\\src\\main\\resources\\static\\upload";
+		File file = new File(path + "//" + memberPic);
+		try {
+			mf.transferTo(file);
+		} catch (Exception e) { //예외가 발생해야 트렌젝션 처리 가능
+			e.printStackTrace();
+			throw new RuntimeException();
+			//Exception 종류
+			//1. 예외를 처리해야만 문법적으로 문제가 없는 예외
+			//2. 예외처리를 코드에서 구현하지 않아도 문제가 없는 예외 - RuntimeException() 
+		}
+		
+		return row;
+	}
 	
 	//비밀번호 찾기
 	public int getMemberPw(Member member) { //id와 email
@@ -88,8 +146,4 @@ public class MemberService {
 		return memberMapper.selectLoginMember(loginMember);
 	}
 	
-	//회원가입 - insert(add)
-	public int addMember(Member member) {
-		return memberMapper.insertMember(member);
-	}
 }

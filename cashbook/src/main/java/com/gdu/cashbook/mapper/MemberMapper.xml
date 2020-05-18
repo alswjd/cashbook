@@ -82,7 +82,8 @@
 			member_name, 
 			member_addr, 
 			member_phone, 
-			member_email		
+			member_email,
+			member_pic		
 		)VALUES(
 			#{memberId}, 
 			<!-- password 암호화 -->
@@ -90,7 +91,8 @@
 			#{memberName}, 
 			#{memberAddr}, 
 			#{memberPhone}, 
-			#{memberEmail}
+			#{memberEmail},
+			#{memberPic}
 		)
 	</insert>
 </mapper>
