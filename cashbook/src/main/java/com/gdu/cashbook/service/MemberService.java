@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
@@ -26,6 +27,20 @@ public class MemberService {
 	@Autowired private MemberidMapper memberidMapper;
 	@Autowired private JavaMailSender javaMailSender; //@Component
 	
+
+	//회원정보 수정
+	public int updateMember(MemberForm memberForm) {
+		//memberForm -> member
+		MultipartFile mf = memberForm.getMemberPic();
+		
+		//확장자
+		String originName = mf.getOriginalFilename();
+		int lastDot = 
+		
+		
+		
+		return memberMapper.updateMember(member);
+	}
 	
 	//회원가입 - insert(add)
 	public int addMember(MemberForm memberForm) {
@@ -39,10 +54,8 @@ public class MemberService {
 			파일 확장자 유효성 검사
 			if(mf.getContentType().equals("image/png") || mf.getContentType().equals("image/png")) {
 				//업로드를 함
-				
 			}else {
-				//업로드 하지 않음
-				
+				//업로드 하지 않음	
 			}
 		*/
 		System.out.println(originName +"<==originName");
@@ -65,8 +78,8 @@ public class MemberService {
 		int row = memberMapper.insertMember(member);
 		
 		//2.파일 저장 - static에 upload 파일 경로
-		String path = "C:\\mj___\\stsSTS\\maven.1589424312961\\cashbook\\src\\main\\resources\\static\\upload";
-		File file = new File(path + "//" + memberPic);
+		String path = "C:\\mj___\\stsSTS\\maven.1589424312961\\cashbook\\src\\main\\resources\\static\\upload\\";
+		File file = new File(path + memberPic);
 		try {
 			mf.transferTo(file);
 		} catch (Exception e) { //예외가 발생해야 트렌젝션 처리 가능
@@ -78,6 +91,26 @@ public class MemberService {
 		}
 		
 		return row;
+	}
+	
+	//회원탈퇴 - 트렌젝션 처리
+	public int removeMember(LoginMember loginMember) {
+		//1. 멤버 이미지 파일 삭제
+		//1-1 파일 이름 select member_pic from member
+		String memberPic = memberMapper.selectMemberPic(loginMember.getMemberId());
+		//1-2 파일 삭제
+		String path = "C:\\mj___\\stsSTS\\maven.1589424312961\\cashbook\\src\\main\\resources\\static\\upload";
+		File file = new File(path +"\\"+ memberPic);
+		if(file.exists()) {
+			file.delete();
+		}
+		//2
+		Memberid memberid = new Memberid();
+		memberid.setMemberId(loginMember.getMemberId());
+		this.memberidMapper.insertMemberid(memberid);
+		
+		//3
+		return memberMapper.deleteMember(loginMember);
 	}
 	
 	//비밀번호 찾기
@@ -113,22 +146,6 @@ public class MemberService {
 	//아이디 찾기
 	public String getMemberIdByMember(Member member) {
 		return memberMapper.selectMemberIdbyMember(member);
-	}
-	
-	//회원탈퇴 - 트렌젝션 처리
-	public void removeMember(LoginMember loginMember) {
-		//1
-		Memberid memberid = new Memberid();
-		memberid.setMemberId(loginMember.getMemberId());
-		this.memberidMapper.insertMemberid(memberid);
-		
-		//2
-		memberMapper.deleteMember(loginMember);
-	}
-		
-	//회원정보 수정
-	public int updateMember(Member member) {
-		return memberMapper.updateMember(member);
 	}
 	
 	//회원정보

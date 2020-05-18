@@ -8,6 +8,8 @@ import com.gdu.cashbook.vo.Memberid;
 
 @Mapper
 public interface MemberMapper {
+	//이미지 가지고 오기
+	public String selectMemberPic(String memberId);
 	//비밀번호 찾기
 	public int updateMemberPw(Member member);
 	//아이디 찾기

@@ -74,21 +74,21 @@ public class MemberController {
 	
 	//회원탈퇴 폼
 	@GetMapping("/removeMember")
-	public String removeMember(HttpSession session, LoginMember loginMember) {
+	public String removeMember(HttpSession session,Model model, LoginMember loginMember) {
 		//로그인 되어 있지 않으면 index로 redirect
 		if(session.getAttribute("loginMember") == null) {
 			return "redirect:/";
 		}
 		
-		String memberPw = ((LoginMember)(session.getAttribute("loginMember"))).getMemberPw();
-		System.out.println(memberPw +"<==memberpw");
+		Member member = memberService.selectgetMemberOne((LoginMember)(session.getAttribute("loginMember")));
+		model.addAttribute("member", member);
 		
 		return "removeMember"; //input type="password" name="memberPw"
 	}
 	
 	//회원탈퇴 액션
 	@PostMapping("/removeMember")
-	public String removeMember(HttpSession session, @RequestParam("memberPw") String memberPw) {
+	public String removeMember(HttpSession session, Model model, @RequestParam("memberPw") String memberPw) {
 		//로그인 되어 있지 않으면 index로 redirect
 		if(session.getAttribute("loginMember") == null) {
 			return "redirect:/index";
@@ -97,11 +97,15 @@ public class MemberController {
 		LoginMember loginMember = (LoginMember)(session.getAttribute("loginMember"));
 		loginMember.setMemberPw(memberPw);
 		
-		memberService.removeMember(loginMember);
+		int row = memberService.removeMember(loginMember);
 		
-		session.invalidate();
-		
-		return "redirect:/index";
+		if(row == 0) {//삭제 안 됨
+			model.addAttribute("msg","비밀번호를 확인하세요");
+			return "redirect:/removeMember";
+		}else {//삭제 실행
+			session.invalidate();
+			return "redirect:/index";
+		}
 	}
 	
 	//회원정보 수정 폼
@@ -228,13 +232,22 @@ public class MemberController {
 		if(session.getAttribute("loginMember") != null) {
 			return "redirect:/";
 		}
-		
-		memberService.addMember(memberForm);
-		//데이터를 insert 한 후 redirect
-		
+	
 		//memberForm
 		//service : memberForm -> member + 폴더에 파일 저장
 		System.out.println(memberForm+"<--form");
+		
+		//이미지 확장자 검사 (jpg / png / gif만 업로드 가능)
+		if(memberForm.getMemberPic() != null) {
+			if(!memberForm.getMemberPic().getContentType().equals("image/jpeg") 
+					&& !memberForm.getMemberPic().getContentType().equals("image/png")
+						&& !memberForm.getMemberPic().getContentType().equals("image/gif")) {
+				return "redirect:/addMember";
+			}
+		}
+		
+		memberService.addMember(memberForm);
+		//데이터를 insert 한 후 redirect
 		
 		return "redirect:/index";
 	}
