@@ -14,7 +14,46 @@
 </head>
 <body>
 <div class="container">
-	<h1>getCashListByDate</h1>
+    <div th:include="/include/menu::sidemenu"></div>
+	<h1>getCashcashByDate</h1>
+	<h1 class="text-center" th:text="${day}"></h1>
+	<div>
+		<a th:href="@{/getCashListByDate(day = ${day.plusDays(-1)})}">이전</a>
+		<a th:href="@{/getCashListByDate(day = ${day.plusDays(+1)})}">다음</a>
+	</div>
+	<table class="table">
+		<thead>
+			<tr>
+				<td>&nbsp;</td>
+				<td>카테고리</td>
+				<td>수입</td>
+				<td>지출</td>
+				<td>장소</td>
+				<td>메모</td>
+				<td>삭제</td>
+				<td>수정</td>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="cash, index :${list}">
+		         <td th:text="${index.index}+1"></td>
+		         <td th:text="${cash.categoryName}"></td>
+		         
+		         <!-- thymeleaf if-else믄 : if/unless -->
+		         <td th:if="${cash.cashKind} == '수입' " th:text=" '+' + ${cash.cashPrice}"></td>
+		         <td th:unless="${cash.cashKind} == '수입'"> </td>
+		         <td th:if="${cash.cashKind} == '지출' " th:text=" '-' + ${cash.cashPrice}"></td>
+		         <td th:unless="${cash.cashKind} == '지출'"> </td>
+		        
+		         <td th:text="${cash.cashPlace}"></td>
+		         <td th:text="${cash.cashMemo}"></td>
+		         
+		         <!-- cashNo 값을 넘겨줌 -->
+		         <td><a href="@{/removeCash(cashNo=${cash.cashNo})}">삭제</a></td>
+		         <td><a href="">수정</a></td>
+	        </tr>
+	     </tbody>
+	</table>
 </div>
 </body>
 </html>

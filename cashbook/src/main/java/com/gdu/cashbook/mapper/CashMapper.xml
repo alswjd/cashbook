@@ -6,6 +6,7 @@
 	<!-- 사용자 지출 리스트 -->
 	<select id="selectCashListByDate" parameterType="com.gdu.cashbook.vo.Cash" resultType="com.gdu.cashbook.vo.Cash">
 		SELECT 
+			cash_no cashNo,
 			cash_kind cashKind,
 			category_name categoryName,
 			cash_price cashPrice,
