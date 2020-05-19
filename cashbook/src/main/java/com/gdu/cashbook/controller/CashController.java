@@ -1,9 +1,8 @@
 package com.gdu.cashbook.controller;
 
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -35,7 +34,7 @@ public class CashController {
 		System.out.println(day +"dayyyyy");
 		
 		//session
-		if(session.getAttribute("loginMember") == null) {
+		if(session.getAttribute("loginMember") == null) { 
 			return "redirect:/login";
 		}
 		
@@ -49,10 +48,11 @@ public class CashController {
 		cash.setCashDate(day);
 		
 		//list
-		List<Cash> list = cashService.getCashListByDate(cash);
+		Map<String, Object> map = cashService.getCashListByDate(cash);
 		
 		//model
-		model.addAttribute("list", list);
+		model.addAttribute("list", map.get("list"));
+		model.addAttribute("cashKindSum", map.get("cashKindSum"));
 		model.addAttribute("day", day);
 		
 		//debug

@@ -11,15 +11,21 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <!-- Latest compiled JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+<style>
+ .prev {
+  float:left; }
+ .next {
+  display:inline-block;}  
+</style>
 </head>
 <body>
 <div class="container">
     <div th:include="/include/menu::sidemenu"></div>
-	<h1>getCashcashByDate</h1>
+	<h1>2020 가계부</h1>
 	<h1 class="text-center" th:text="${day}"></h1>
 	<div>
-		<a th:href="@{/getCashListByDate(day = ${day.plusDays(-1)})}">이전</a>
-		<a th:href="@{/getCashListByDate(day = ${day.plusDays(+1)})}">다음</a>
+		<a th:href="@{/getCashListByDate(day = ${day.plusDays(-1)})}" class="prev btn btn-primary">이전</a>
+		<a th:href="@{/getCashListByDate(day = ${day.plusDays(+1)})}" class="next btn btn-primary">다음</a>
 	</div>
 	<table class="table">
 		<thead>
@@ -54,6 +60,10 @@
 	        </tr>
 	     </tbody>
 	</table>
+	<div>(수입 + 지출) 합계 : <span th:text="${cashKindSum}"></span></div>
+	<div>
+		<a th:href="@{/}">입력</a>
+	</div>
 </div>
 </body>
 </html>
