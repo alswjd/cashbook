@@ -21,12 +21,12 @@ body {
 
 .sidenav {
   height: 100%;
-  width: 200px;
+  width: 250px;
   position: fixed;
   z-index: 1;
   top: 0;
   left: 0;
-  background-color: #111;
+  background-color: #007bff;
   overflow-x: hidden;
   padding-top: 20px;
 }
@@ -34,8 +34,16 @@ body {
 .sidenav a {
   padding: 6px 6px 6px 32px;
   text-decoration: none;
-  font-size: 25px;
-  color: #818181;
+  font-size: 20px;
+  color: white;
+  display: block;
+}
+
+div.memberId {
+  padding: 6px 6px 6px 32px;
+  text-decoration: none;
+  font-size: 20px;
+  color: white;
   display: block;
 }
 
@@ -56,15 +64,19 @@ body {
 <body>
    <!-- fragment1 fullname= /include/menu::sidemenu-->
    <div th:fragment="sidemenu">
-      <div><span th:text="${session.loginMember.memberId}"></span>님 환영합니다</div>
-      <ul>
-         <li><a th:href="@{/home}">홈</a></li>
-         <li><a th:href="@{/memberInfo}">회원정보</a></li>
-         <li><a th:href="@{/getCashListByDate}">일별 가게부 관리</a></li>
-         <li><a th:href="@{/getCashListByMonth}">월별 가게부 관리</a></li>
-         <li><a th:href="@{/boardList}">게시판</a></li>
-         <li><a th:href="@{/logout}">로그아웃</a></li>
-      </ul>
+      
+      <div class="memberId">
+      	<!-- <img th:src="@{${'/upload/' + member.memberPic}}">-->
+      	<span th:text="${session.loginMember.memberId}"></span>님 환영합니다
+      </div><br><br><br>
+      
+       <a th:href="@{/home}">홈</a><br>
+       <a th:href="@{/memberInfo}">회원정보</a><br>
+       <a th:href="@{/getCashListByDate}">일별 가게부 관리</a><br>
+       <a th:href="@{/getCashListByMonth}">월별 가게부 관리</a><br>
+       <a th:href="@{/boardList}">게시판</a><br>
+       <a th:href="@{/logout}">로그아웃</a><br>
+    
    </div>
    
    <!-- fragment2 -->

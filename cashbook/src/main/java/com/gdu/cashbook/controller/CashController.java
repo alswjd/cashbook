@@ -46,7 +46,7 @@ public class CashController {
 			  	LocalDate -> String -> Calendar
 			  	LocalDate -> Calendar
 			 */
-			cDay.set(day.getYear(), day.getMonthValue() - 1, day.getDayOfMonth());
+			cDay.set(day.getYear(), day.getMonthValue(), day.getDayOfMonth());
 		}
 		
 		/*
@@ -66,16 +66,14 @@ public class CashController {
 		
 		model.addAttribute("dayAndPriceList", dayAndPrices);
 		model.addAttribute("day",day);
-		model.addAttribute("month",cDay.get(Calendar.MONTH)+1);	//월
+		model.addAttribute("month",cDay.get(Calendar.MONTH)+1);	//월 - day 값에 포함
 		model.addAttribute("lastDay",cDay.getActualMaximum(Calendar.DATE));		//마지막 일
 		
-		Calendar firstDay = Calendar.getInstance();
-		firstDay.clear();
-		firstDay.set(Calendar.YEAR, cDay.get(Calendar.YEAR));
-		firstDay.set(Calendar.DATE,1);//일만 1로 변경
-		//firstDay.get(Calendar.DAY_OF_WEEK);    //요일 (1이면 일요일 2이면 월요일)
-		
-		model.addAttribute("firstDayOfWeek", firstDay.get(Calendar.DAY_OF_WEEK)); //이번달의 1일이 무슨 요일인지
+		Calendar firstDay= cDay;
+	    firstDay.set(Calendar.DATE,1); //cDay 에서 일만 1일로 변경 
+	    firstDay.get(Calendar.DAY_OF_WEEK); //요일      0->일요일,   1->월요일,   2->화요일    ......   6토요일
+	    System.out.println("firstDay.get(Calendar.DAY_OF_WEEK)"+firstDay.get(Calendar.DAY_OF_WEEK));
+	    model.addAttribute("firstDayOfWeek", firstDay.get(Calendar.DAY_OF_WEEK) ); //이번달의 1일이 무슨요일인지 
 		
 		return "getCashListByMonth";
 	}

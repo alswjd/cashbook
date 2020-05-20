@@ -3,6 +3,26 @@
 <head>
 <meta charset="UTF-8">
 <title>index</title>
+<style>
+	.text{
+		font-weight: bold;
+		font-size: 36px;
+		text-align: center;
+	}
+	
+	a.button {
+	    font-size: 16px;
+	    color: rgb(255, 255, 255);
+	    text-align: center;
+	    line-height: 2.5em;
+	    border-top-left-radius: 4px;
+	    border-top-right-radius: 4px;
+	    border-bottom-right-radius: 4px;
+	    border-bottom-left-radius: 4px;
+	    background-color: rgb(52, 152, 219);
+	}
+	
+</style>
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
 <!-- jQuery library -->
@@ -15,7 +35,8 @@
 <body>
 <div class="container">
 	<div align="center">
-		<h1 class="m-5">Cash Book</h1>
+		<h1 class="m-5 text">가계부</h1>
+		<h1 class="m-4 text">시작하기</h1>
 		<br><br>
 		<!-- session값을 불러와 값이 있다면 로그인 중 = 로그아웃 버튼만 보임 -->
 		<div th:if="${session.loginMember != null}">
@@ -23,10 +44,10 @@
 		</div>
 		<!-- null이면 로그인 버튼 보임 -->
 		<div th:if="${session.loginMember == null}">
-			<a href="/login" type="button" class="btn btn-primary col-sm-4">로그인</a>
+			<a href="/login" type="button" class="btn btn-primary col-sm-4 button">로그인</a>
 		</div>
 		<br><br><br>
-		<a href="/addMember" type="button" class="btn btn-primary col-sm-4">회원가입</a>
+		<a href="/addMember" type="button" class="btn btn-primary col-sm-4 button">회원가입</a>
 		<br><br><br><br><br>
 		<div>본 콘텐츠의 저작권은 제공처에 있으며, 이를 무단 이용하는 경우 저작권법 등에 따라 법적 책임을 질 수 있습니다.</div>
 		<div><strong>Copyright © JWsoft Corp. All Rights Reserved.</strong></div>

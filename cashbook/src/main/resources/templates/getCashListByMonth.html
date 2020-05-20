@@ -23,6 +23,13 @@
     	height: 40px;
     	background-color: #ccc; 
     }
+    
+    .gd-blue{
+    	color: blue;
+    }
+    .gd-red{
+    	color: red;
+    }
 </style>
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
@@ -36,6 +43,7 @@
 <body>
 <div class="container" align="center">
 	<h1>월별 가계부 관리</h1>
+	<h3 th:text="${#temporals.format(day, 'yyyy-mm')}"></h3>
 	<div>
 		<a th:href="@{/getCashListByMonth(day = ${day.plusMonths(-1)})}" class="prev btn btn-primary">이전</a>
 		<a th:href="@{/getCashListByMonth(day = ${day.plusMonths(+1)})}" class="next btn btn-primary">다음</a>
@@ -51,8 +59,13 @@
 		<div class="gd-left gd-title">토</div>
 		
 	    <div th:each="i,index : ${#numbers.sequence(1, lastDay + (firstDayOfWeek - 1))}" 
-	    	 th:text="${(i - (firstDayOfWeek - 1))} > 0 ? ${(i - (firstDayOfWeek - 1))} : ''"
-	    	 th:class="${index.index % 7} == 0 ? 'gd-clear gd-left': 'gd-left'" > 
+	    	 th:class="${index.index % 7} == 0 ? 'gd-clear gd-left': 'gd-left'">
+	    	 <div th:text="${i - (firstDayOfWeek - 1)}>  0 ? ${i - (firstDayOfWeek - 1)} : ''"></div><!-- 날짜 --> 
+	    	 <div th:each="dp : ${dayAndPriceList}"> <!-- 수입지출합계 -->
+	    	 	<span th:if="${i - (firstDayOfWeek - 1) == dp.day}">
+	    	 		<span th:class="${dp.price} > 0 ? 'gd-blue' : 'gd-red' " th:text="${dp.price}"></span>
+	    	 	</span>
+	    	 </div>
 	    </div>
 	</div>	
 </div>

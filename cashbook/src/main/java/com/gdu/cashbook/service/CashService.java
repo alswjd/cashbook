@@ -16,7 +16,7 @@ public class CashService {
 	
 	@Autowired private CashMapper cashMapper;
 	
-	//
+	//지출 수입 합계
 	public List<DayAndPrice> getDayAndPriceList(String memberId, int year, int month){
 		Map<String, Object> map = new HashMap<>();
 		

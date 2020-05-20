@@ -3,7 +3,7 @@
 	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.gdu.cashbook.mapper.CashMapper">  
-	<!--  -->
+	<!-- 수입지출 합계 -->
 	<select id="selectDayAndPriceList" parameterType="java.util.Map" resultType="com.gdu.cashbook.vo.DayAndPrice">
 		SELECT DAY(cash_date) as day, 
 			   SUM(CASE WHEN cash_kind = '수입' THEN cash_price 
@@ -15,12 +15,6 @@
 		GROUP BY DAY(cash_date)
 	</select>
 	
-	<!-- 삭제 -->
-	<delete id="deleteCash" parameterType="String">
-		DELETE FROM cash
-		WHERE cash_no = #{cashNo}
-	</delete>
-	
 	<!-- 합계 -->
 	<select id="selectCashKindSum" resultType="int" parameterType="com.gdu.cashbook.vo.Cash">
 		SELECT
@@ -29,6 +23,13 @@
          (SELECT IFNULL(SUM(cash_price) ,'0') FROM cash WHERE member_id = #{memberId} AND   cash_kind = '지출' AND   cash_date = #{cashDate})
       FROM dual
 	</select>
+	
+	<!-- 삭제 -->
+	<delete id="deleteCash" parameterType="String">
+		DELETE FROM cash
+		WHERE cash_no = #{cashNo}
+	</delete>
+	
 	
 	<!-- 사용자 지출 리스트 -->
 	<select id="selectCashListByDate" parameterType="com.gdu.cashbook.vo.Cash" resultType="com.gdu.cashbook.vo.Cash">
