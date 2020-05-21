@@ -21,9 +21,10 @@
 </head>
 <body>
 
-<div id="body">
-<div id="aside">
-	<div th:include="/include/menu::sidemenu" class="sidenav"></div>
+ <div id="aside">
+    <div th:include="/include/menu::sidemenu" class="sidenav"></div>     
+ </div>
+  <div id="section">
 	<h1>2020 가계부</h1>
 	<h1 class="text-center" th:text="${day}"></h1>
 	<div>
@@ -59,13 +60,13 @@
 		         
 		         <!-- cashNo 값을 넘겨줌 -->
 		         <td><a th:href="@{/removeCash(cashNo=${cash.cashNo})}">삭제</a></td>
-		         <td><a th:href="@{/modifyCash(cashNo=${cash.cashNo})}">수정</a></td>
+		         <td><a th:href="@{/getCashOne(cashNo=${cash.cashNo})}">수정</a></td>
 	        </tr>
 	     </tbody>
 	</table>
 	<div>(수입 + 지출) 합계 : <span th:text="${cashKindSum}"></span></div>
 	<div>
-		<!-- <a th:href="">입력</a>-->
+		<a th:href="@{/addCash}">입력</a>
 	</div>
 </div>
 </body>

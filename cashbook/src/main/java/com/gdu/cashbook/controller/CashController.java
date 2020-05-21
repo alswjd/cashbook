@@ -26,6 +26,27 @@ public class CashController {
 	@Autowired private CashService cashService;
 	
 	
+	//입력폼
+	@GetMapping("/addCash")
+	public String addCash(HttpSession session, Model model) {
+		//session
+		if(session.getAttribute("loginMember") == null) { 
+			return "redirect:/login";
+		}
+		
+		String memberId = ((LoginMember)(session.getAttribute("loginMember"))).getMemberId();
+		model.addAttribute("memberId", memberId);
+		
+		return "addCash";
+	}
+	
+	//입력
+	@PostMapping("/addCash")
+	public String addCash(Cash cash) {
+		cashService.addCash(cash);
+		return "redirect:/getCashListByDate";
+	}
+	
 	//수정 폼
 	@GetMapping("/getCashOne")
 	public String getCashOne(HttpSession session,Model model,  @RequestParam("cashNo")String cashNo) {
@@ -42,13 +63,13 @@ public class CashController {
 	
 	//수정 액션
 	@PostMapping("/modifyCash")
-	public String modifyCash(HttpSession session, Model model, @RequestParam("cashNo")String cashNo) {
+	public String modifyCash(HttpSession session, Model model, Cash cash) {
 		//session
 		if(session.getAttribute("loginMember") == null) { 
 			return "redirect:/login";
 		}
 		
-		cashService.modifyCash(cashNo);
+		cashService.modifyCash(cash);
 		
 		return "modifyCash";
 	}

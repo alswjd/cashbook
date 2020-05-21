@@ -16,10 +16,15 @@ public class CashService {
 	
 	@Autowired private CashMapper cashMapper;
 	
+	//입력
+	public int addCash(Cash cash) {
+		return cashMapper.insertCash(cash);
+	}
+	
 	//수정
-	public int modifyCash(String cashNo) {
+	public int modifyCash(Cash cash) {
 		System.out.println("modify");
-		return cashMapper.updateCash(cashNo);
+		return cashMapper.updateCash(cash);
 	}
 	
 	//수정 폼

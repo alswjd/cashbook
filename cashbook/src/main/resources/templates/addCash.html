@@ -15,7 +15,7 @@
 <script>
 	$(document).ready(function(){
 		$('#btn').click(function(){
-			$('#updateForm').submit();
+			$('#insertForm').submit();
 		});
 	});
 </script>
@@ -25,42 +25,47 @@
     <div th:include="/include/menu::sidemenu" class="sidenav"></div>     
  </div>
   <div id="section">
-  <h1></h1>
-  <h3 align="center">수입/지출 수정</h3>
-	<form method="post" action="/modifyCash" id="updateForm">
+  	<h3 align="center">수입/지출 입력</h3>
+	<form method="post" action="/addCash" id="insertForm">
+		<input type="hidden" th:value="${memberId}" name="memberId">
 		<table class="table">
 			<tr>
-				<td>cashNo</td>
-				<td><input type="text" th:value="${cash.cashNo}" id="cashNo" name="cashNo" readonly="readonly"></td>
-			</tr>
-			<tr>
-				<td>memberId</td>
-				<td><input type="text" th:value="${cash.memberId}" id="memberId" name="memberId" readonly="readonly"></td>
-			</tr>
-			<tr>
 				<td>cashKind</td>
-				<td><input type="text" th:value="${cash.cashKind}" id="cashKind" name="cashKind"></td>
+				<td>
+					<select name="cashKind">
+						<option value="">수입/지출</option>
+						<option value="수입">수입</option>
+						<option value="지출">지출</option>
+					</select>
+				</td>
 			</tr>
 			<tr>
 				<td>categoryName</td>
-				<td><input type="text" th:value="${cash.categoryName}" id="categoryName" name="categoryName"></td>
+				<td>
+					<select name="categoryName">
+						<option value="">카테고리</option>
+						<option value="1">1</option>
+						<option value="2">2</option>
+						<option value="3">3</option>
+					</select>
+				</td>
 			</tr>
 				<td>cashPrice</td>
-				<td><input type="text" th:value="${cash.cashPrice}" id="cashPrice" name="cashPrice"></td>
+				<td><input type="text" id="cashPrice" name="cashPrice"></td>
 			</tr>
 			<tr>
 				<td>cashPalce</td>
-				<td><input type="text" th:value="${cash.cashPlace}" id="cashPlace" name="cashPlace"></td>
+				<td><input type="text" id="cashPlace" name="cashPlace"></td>
 			</tr>
 			<tr>
 				<td>cashMemo</td>
-				<td><input type="text" th:value="${cash.cashMemo}" id="cashMemo" name="cashMemo"></td>	
+				<td><input type="text" id="cashMemo" name="cashMemo"></td>	
 			</tr>
 		</table>
 	</form>
 	<div>
-		<button type="button" id="btn">수정하기</button>
+		<button type="button" id="btn">입력하기</button>
 	</div>
-</div>
+  </div>
 </body>
 </html>

@@ -11,6 +11,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <!-- Latest compiled JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+<style th:include="/include/menu::css"></style>
 <script>
 	let helperInit = function() {
 		$('#memberHelper').text("");
@@ -36,8 +37,11 @@
 	});
 </script>
 </head>
-<body>
-<div class="container">
+<body> 
+<div id="aside">
+    <div th:include="/include/menu::sidemenu" class="sidenav"></div>     
+ </div>
+  <div id="section">
 	<h1>회원탈퇴</h1>
 	<form id="removeForm" method="post" action="/removeMember">
 		<div>

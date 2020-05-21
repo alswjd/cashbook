@@ -3,6 +3,29 @@
 	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.gdu.cashbook.mapper.CashMapper">  
+	<!-- 입력 -->
+	<insert id="insertCash" parameterType="com.gdu.cashbook.vo.Cash">
+		INSERT INTO cash(
+			cash_no ,
+			member_id ,
+			cash_date ,
+			cash_kind ,
+			category_name ,
+			cash_price ,
+			cash_place ,
+			cash_memo 
+		)VALUES(
+			#{cashNo},
+			#{memberId},
+			NOW(),
+			#{cashKind},
+			#{categoryName},
+			#{cashPrice},
+			#{cashPlace},
+			#{cashMemo}
+		)		
+	</insert>
+	
 	<!-- 수정폼 -->
 	<select id="getCashOne" parameterType="String" resultType="com.gdu.cashbook.vo.Cash">
 		SELECT
@@ -19,7 +42,7 @@
 	</select>
 	
 	<!-- 수정 -->
-	<update id="updateCash" parameterType="String">
+	<update id="updateCash" parameterType="com.gdu.cashbook.vo.Cash">
 		UPDATE cash
 		SET
 			cash_kind = #{cashKind},
