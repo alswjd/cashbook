@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>index</title>
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<!-- Popper JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+<style th:include="/include/menu::css"></style>
+<script>
+	$(document).ready(function(){
+		$('#btn').click(function(){
+			$('#updateForm').submit();
+		});
+	});
+</script>
+</head>
+<body>
+<div class="container">
+	<div th:include="/include/menu::sidemenu" class="sidenav"></div>
+	<form method="post" action="/modifyCash" id="updateForm">
+		<table class="table">
+			<tr>
+				<td>cashNo</td>
+				<td>memberId</td>
+				<td>cashDate</td>
+				<td>cashKind</td>
+				<td>categoryName</td>
+				<td>cashPrice</td>
+				<td>cashPalce</td>
+				<td>cashMemo</td>
+			</tr>
+			<tr>
+				<td><input type="text" th:value="${cash.cashNo}" id="cashNo" name="cashNo"readonly="readonly"></td>
+				<td><input type="text" th:value="${cash.memberId}" id="memberId" name="memberId" readonly="readonly"></td>
+				<td><input type="text" th:value="${cash.cashDate}" id="cashDate" name="cashDate"></td>
+				<td><input type="text" th:value="${cash.cashKind}" id="cashKind" name="cashKind"></td>
+				<td><input type="text" th:value="${cash.categoryName}" id="categoryName" name="categoryName"></td>
+				<td><input type="text" th:value="${cash.cashPrice}" id="cashPrice" name="cashPrice"></td>
+				<td><input type="text" th:value="${cash.cashPlace}" id="cashPlace" name="cashPlace"></td>
+				<td><input type="text" th:value="${cash.cashMemo}" id="cashMemo" name="cashMemo"></td>		
+			</tr>
+		</table>
+	</form>
+	<div>
+		<button type="button" id="btn">수정하기</button>
+	</div>
+</div>
+</body>
+</html>

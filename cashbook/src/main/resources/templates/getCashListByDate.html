@@ -11,6 +11,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <!-- Latest compiled JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+<style th:include="/include/menu::css"></style>
 <style>
  .prev {
   float:left; }
@@ -19,8 +20,10 @@
 </style>
 </head>
 <body>
-<div class="container">
-    <div th:include="/include/menu::sidemenu"></div>
+
+<div id="body">
+<div id="aside">
+	<div th:include="/include/menu::sidemenu" class="sidenav"></div>
 	<h1>2020 가계부</h1>
 	<h1 class="text-center" th:text="${day}"></h1>
 	<div>
@@ -56,7 +59,7 @@
 		         
 		         <!-- cashNo 값을 넘겨줌 -->
 		         <td><a th:href="@{/removeCash(cashNo=${cash.cashNo})}">삭제</a></td>
-		         <td><!--<a th:href="">수정</a>--></td>
+		         <td><a th:href="@{/modifyCash(cashNo=${cash.cashNo})}">수정</a></td>
 	        </tr>
 	     </tbody>
 	</table>

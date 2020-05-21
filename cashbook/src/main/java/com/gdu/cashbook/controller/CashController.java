@@ -7,11 +7,13 @@ import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
+import org.apache.coyote.http2.HpackDecoder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.gdu.cashbook.service.CashService;
@@ -24,6 +26,42 @@ public class CashController {
 	@Autowired private CashService cashService;
 	
 	
+	//수정 폼
+	@GetMapping("/getCashOne")
+	public String getCashOne(HttpSession session,Model model,  @RequestParam("cashNo")String cashNo) {
+		//session
+		if(session.getAttribute("loginMember") == null) { 
+			return "redirect:/login";
+		}
+		
+		Cash cashOne = cashService.getCashOne(cashNo);
+		model.addAttribute("cash", cashOne);
+		
+		return "getCashOne";
+	}
+	
+	//수정 액션
+	@PostMapping("/modifyCash")
+	public String modifyCash(HttpSession session, Model model, @RequestParam("cashNo")String cashNo) {
+		//session
+		if(session.getAttribute("loginMember") == null) { 
+			return "redirect:/login";
+		}
+		
+		cashService.modifyCash(cashNo);
+		
+		return "modifyCash";
+	}
+	
+	//삭제
+	@GetMapping("/removeCash")
+	public String removeCash(@RequestParam("cashNo") String cashNo) {
+		cashService.removeCash(cashNo);
+		System.out.println(0);
+		return "redirect:/getCashListByDate";
+	}
+	
+
 	//달력
 	@GetMapping("/getCashListByMonth")
 	public String getCashListByMonth(HttpSession session, Model model, 
@@ -60,7 +98,7 @@ public class CashController {
 		//일별 수입, 지출 총액
 		String memberId = ((LoginMember)session.getAttribute("loginMember")).getMemberId();
 		int year = cDay.get(Calendar.YEAR);
-		int month = cDay.get(Calendar.MONTH)+1;
+		int month = cDay.get(Calendar.MONTH)+1; //1월은 0부터 시작
 		List<DayAndPrice> dayAndPrices = cashService.getDayAndPriceList(memberId, year, month);
 		System.out.println(dayAndPrices);
 		
@@ -78,13 +116,6 @@ public class CashController {
 		return "getCashListByMonth";
 	}
 	
-	//삭제
-	@GetMapping("/removeCash")
-	public String removeCash(@RequestParam("cashNo") String cashNo) {
-		cashService.removeCash(cashNo);
-		System.out.println(0);
-		return "redirect:/getCashListByDate";
-	}
 	
 	//지출 수입 리스트
 	@GetMapping("/getCashListByDate")

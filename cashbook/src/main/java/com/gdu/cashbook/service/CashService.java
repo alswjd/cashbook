@@ -16,6 +16,17 @@ public class CashService {
 	
 	@Autowired private CashMapper cashMapper;
 	
+	//수정
+	public int modifyCash(String cashNo) {
+		System.out.println("modify");
+		return cashMapper.updateCash(cashNo);
+	}
+	
+	//수정 폼
+	public Cash getCashOne(String cashNo) {
+		return cashMapper.getCashOne(cashNo);
+	}
+	
 	//지출 수입 합계
 	public List<DayAndPrice> getDayAndPriceList(String memberId, int year, int month){
 		Map<String, Object> map = new HashMap<>();
@@ -23,6 +34,7 @@ public class CashService {
 		map.put("memberId",memberId);
 		map.put("year", year);
 		map.put("month", month);
+		
 		return cashMapper.selectDayAndPriceList(map);
 	}
 	
