@@ -9,7 +9,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.gdu.cashbook.service.AdminService;
 import com.gdu.cashbook.service.MemberService;
+import com.gdu.cashbook.vo.Admin;
 import com.gdu.cashbook.vo.LoginMember;
 import com.gdu.cashbook.vo.Member;
 import com.gdu.cashbook.vo.MemberForm;
@@ -19,6 +21,8 @@ public class MemberController {
 	//객체를 자동으로 주입
 	@Autowired
 	private MemberService memberService;
+	@Autowired
+	private AdminService adminService;
 	
 
 	//회원정보 수정 액션
@@ -226,11 +230,15 @@ public class MemberController {
 	
 	//로그인 액션 - select
 	@PostMapping("/login")
-	public String login(LoginMember loginMember, HttpSession session) {
+	public String login(LoginMember loginMember,Admin admin, HttpSession session) {
 		
 		//session
 		LoginMember returnLoginMember = memberService.login(loginMember);
 		System.out.println(returnLoginMember + "<== returnLoginMember");
+		
+		//admin session
+		Admin returnLoginAdmin = adminService.adminLogin(admin);
+		
 		
 		//로그인 했을 때 아이디와 비밀번호 가 일치하지 않으면
 		if(returnLoginMember == null) {
@@ -239,6 +247,7 @@ public class MemberController {
 		}else { //일치한다면
 			//redirect
 			session.setAttribute("loginMember", returnLoginMember);
+			session.setAttribute("loginAdmin", returnLoginAdmin);
 			return "home";
 		}
 	}

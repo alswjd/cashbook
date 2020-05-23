@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>getBoardList</title>
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<!-- Popper JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+<style th:include="/include/menu::css"></style>
+</head>
+<body>
+ <div id="aside">
+    <div th:include="/include/menu::sidemenu" class="sidenav"></div>     
+ </div>
+  <div id="section">
+  <h1>QnA</h1><br><br><br>
+   	<table class="table border">
+  		<tr>
+  			<td>board no</td>
+  			<td>member id</td>
+  			<td>admin id</td>
+  			<td>board title</td>
+  			<td>board content</td>
+  			<td>board date</td>
+  		</tr>
+  		<tr th:each="b: ${board}">
+  			<td th:text="${b.boardNo}"></td>
+  			<td th:text="${b.memberId}"></td>
+  			<td th:text="${b.adminId}"></td>
+  			<td>
+            	<a th:href="@{/boardListDetail(boardNo=${b.boardNo})}"><span th:text="${b.boardTitle}"></span></a>
+        	</td>
+  			<td th:text="${b.boardContent}"></td>
+  			<td th:text="${b.boardDate}"></td>
+  		</tr>
+  	</table>
+  </div>
+</body>
+</html>

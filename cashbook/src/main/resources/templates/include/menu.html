@@ -92,15 +92,47 @@ div.memberId {
    <div th:fragment="sidemenu">
       
       <div class="memberId">
-      	<!-- <img th:src="@{${'/upload/' + member.memberPic}}">-->
-      	<span th:text="${session.loginMember.memberId}"></span>님 환영합니다
+	      	<!-- <img th:src="@{${'/upload/' + member.memberPic}}">-->
+	      	
+	      	<!-- memberId 값이 null이면 관리자 -->
+	      	<div th:if="${session.loginAdmin?.adminId}">
+	      		<span th:text="${session.loginAdmin?.adminId}"></span> 관리자
+	      	</div>
+	      
+	      	<!-- adminId 값이 null이면 일반회원 -->
+	      	<div th:if="${session.loginMember?.memberId}">
+	      		<span th:text="${session.loginMember?.memberId}"></span>님 환영합니다
+	      	</div>
       </div><br><br><br>
       
        <a th:href="@{/home}">홈</a><br><br>
-       <a th:href="@{/memberInfo}">회원정보</a><br><br>
-       <a th:href="@{/getCashListByDate}">일별 가게부 관리</a><br><br>
-       <a th:href="@{/getCashListByMonth}">월별 가게부 관리</a><br><br>
-       <a th:href="@{/boardList}">게시판</a><br><br>
+       
+       <!-- 관리자 회원 정보 -->
+       <div th:if="${session.loginAdmin?.adminId}">
+       		<a th:href="@{/adminInfo}">관리자 회원정보</a><br><br>
+       </div>
+       
+       <!-- 일반 회원 정보 -->
+       <div th:if="${session.loginMember?.memberId}">
+       		<a th:href="@{/memberInfo}">회원정보</a><br><br>
+       </div>
+       
+	   <!-- 관리자는 아래 링크를 보이게 하지 않음 -->
+	   <div th:if="${session.loginMember?.memberId}">
+	       <a th:href="@{/getCashListByDate}">일별 가게부 관리</a><br><br>
+	       <a th:href="@{/getCashListByMonth}">월별 가게부 관리</a><br><br>
+	   </div>
+	   
+       <!-- 일반 회원 로그인 시 게시판 -->
+       <div th:if="${session.loginMember?.memberId}">
+       		<a th:href="@{/getBoardList}">게시판</a><br><br>
+       </div>
+       
+       <!-- 관리자 로그인 시 게시판 -->
+       <div th:if="${session.loginAdmin?.adminId}">
+       		<a th:href="@{/getBoardListAdmin}">관리자 게시판</a><br><br>
+       </div>
+       
        <a th:href="@{/logout}">로그아웃</a><br><br>
     
    </div>
