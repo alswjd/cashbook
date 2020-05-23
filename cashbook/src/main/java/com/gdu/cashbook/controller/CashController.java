@@ -70,8 +70,9 @@ public class CashController {
 		}
 		
 		cashService.modifyCash(cash);
+		System.out.println(cash + "<--modifycash");
 		
-		return "modifyCash";
+		return "redirect:/getCashListByDate";
 	}
 	
 	//삭제

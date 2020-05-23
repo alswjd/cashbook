@@ -14,9 +14,18 @@ public class BoardService {
 	@Autowired
 	private BoardMapper boardMapper;
 	
-	//boardListAll
-	public List<Board> getBoardListAll(Board board) {
+	//관리자용 게시판 리스트
+	public List<Board> getBoardListAllAdmin(Board board) {
 		return boardMapper.boardListAllAdmin(board);
 	}
-
+	
+	//일반 회원용 게시판 리스트
+	public List<Board> getBoardListAllMember(Board board){
+		return boardMapper.boardListAllMember(board);
+	}
+	
+	//insert board
+	public int addBoard(Board board) {
+		return boardMapper.insertBoard(board);
+	}
 }

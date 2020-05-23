@@ -28,8 +28,8 @@
 	<h1>2020 가계부</h1>
 	<h1 class="text-center" th:text="${day}"></h1>
 	<div>
-		<a th:href="@{/getCashListByDate(day = ${day.plusDays(-1)})}" class="prev btn btn-primary">이전</a>
-		<a th:href="@{/getCashListByDate(day = ${day.plusDays(+1)})}" class="next btn btn-primary">다음</a>
+		<a th:href="@{/getCashListByDate(day = ${day.plusDays(-1)})}" class="prev btn btn-primary">이전</a>&nbsp;&nbsp;&nbsp;&nbsp;
+		<a th:href="@{/getCashListByDate(day = ${day.plusDays(+1)})}" class="next btn btn-primary">다음</a><br><br>
 	</div>
 	<table class="table">
 		<thead>
@@ -64,9 +64,11 @@
 	        </tr>
 	     </tbody>
 	</table>
-	<div>(수입 + 지출) 합계 : <span th:text="${cashKindSum}"></span></div>
+	<br>
+	<br>
+	<div>(수입 + 지출) 합계 : <span th:text="${cashKindSum}"></span></div><br><br>
 	<div>
-		<a th:href="@{/addCash}">입력</a>
+		<a th:href="@{/addCash}" class="next btn btn-primary">입력</a>
 	</div>
 </div>
 </body>

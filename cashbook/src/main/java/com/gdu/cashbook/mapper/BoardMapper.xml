@@ -3,7 +3,7 @@
 	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.gdu.cashbook.mapper.BoardMapper">  
-	<!-- boardList -->
+	<!-- 관리자용 게시판 리스트 -->
 	<select id="boardListAllAdmin" resultType="com.gdu.cashbook.vo.Board" >
 		SELECT 
 			board_no boardNo,
@@ -15,4 +15,34 @@
 		FROM board
 	</select>
 	
+	<!-- 일반 회원용 게시판 리스트 -->
+	<select id="boardListAllMember" resultType="com.gdu.cashbook.vo.Board" parameterType="com.gdu.cashbook.vo.Board">
+		SELECT
+			board_no boardNo,
+			member_id memberId,
+			admin_id adminId,
+			board_title boardTitle,
+			board_content boardContent,
+			board_date boardDate
+		FROM board
+		WHERE member_id = #{memberId}
+		OR admin_id = 'admin'
+	</select>
+	
+	<!-- 게시글 입력하기 -->
+	<insert id="insertBoard" parameterType="com.gdu.cashbook.vo.Board">
+		INSERT INTO board(
+			member_id,
+			admin_id,
+			board_title,
+			board_content,
+			board_date
+		)VALUES(
+			#{memberId},
+			#{adminId},
+			#{boardTitle},
+			#{boardContent},
+			NOW()
+		)
+	</insert>
 </mapper>

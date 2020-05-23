@@ -47,7 +47,7 @@
 
 .sidenav {
   height: 100%;
-  width: 230px;
+  width: 240px;
   position: fixed;
   z-index: 1;
   top: 0;
@@ -90,18 +90,17 @@ div.memberId {
 <body>
    <!-- fragment1 fullname= /include/menu::sidemenu-->
    <div th:fragment="sidemenu">
-      
+    <div align="center">
       <div class="memberId">
-	      	<!-- <img th:src="@{${'/upload/' + member.memberPic}}">-->
 	      	
 	      	<!-- memberId 값이 null이면 관리자 -->
 	      	<div th:if="${session.loginAdmin?.adminId}">
-	      		<span th:text="${session.loginAdmin?.adminId}"></span> 관리자
+	      		<span th:text="${session.loginAdmin?.adminId}"></span><br> 관리자
 	      	</div>
 	      
 	      	<!-- adminId 값이 null이면 일반회원 -->
 	      	<div th:if="${session.loginMember?.memberId}">
-	      		<span th:text="${session.loginMember?.memberId}"></span>님 환영합니다
+	      		<span th:text="${session.loginMember?.memberId}"></span><br>일반회원
 	      	</div>
       </div><br><br><br>
       
@@ -125,7 +124,7 @@ div.memberId {
 	   
        <!-- 일반 회원 로그인 시 게시판 -->
        <div th:if="${session.loginMember?.memberId}">
-       		<a th:href="@{/getBoardList}">게시판</a><br><br>
+       		<a th:href="@{/getBoardListMember}">게시판</a><br><br>
        </div>
        
        <!-- 관리자 로그인 시 게시판 -->
@@ -134,7 +133,7 @@ div.memberId {
        </div>
        
        <a th:href="@{/logout}">로그아웃</a><br><br>
-    
+    </div>
    </div>
    
    <!-- fragment2 -->
