@@ -15,4 +15,6 @@ public interface BoardMapper {
 	public List<Board> boardListAllMember(Board board);
 	//insert board
 	public int insertBoard(Board board);
+	//boardListDetail
+	public Board boardListDetail(int boardNo);
 }

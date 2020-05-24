@@ -30,8 +30,7 @@
   			<td>board title</td>
   			<td>board content</td>
   			<td>board date</td>
-  			<td>삭제</td>
-  			<td>수정</td>
+  			<td>삭제/수정</td>
   		</tr>
   		<tr th:each="b: ${board}">
   			<td th:text="${b.boardNo}"></td>
@@ -42,8 +41,13 @@
         	</td>
   			<td th:text="${b.boardContent}"></td>
   			<td th:text="${b.boardDate}"></td>
-  			<td><a th:href="@{/removeBoard}">삭제</a></td>
-  			<td><a th:href="@{/modifyBoard}">수정</a></td>
+  			<!-- 관리자의 로그인 값으로 로그인 되어 있을 때 자신의 글에만 수정 삭제 가능 -->
+			<td>
+				<th:block th:if="${b.adminId != null}" >
+					<a th:href="@{/removeBoard}">삭제</a>
+	  				<a th:href="@{/modifyBoard}">수정</a>
+				</th:block>
+			</td>
   		</tr>
   	</table>
   </div>

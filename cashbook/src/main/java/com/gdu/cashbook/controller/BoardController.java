@@ -22,6 +22,20 @@ public class BoardController {
 	@Autowired
 	private BoardService boardService;
 	
+	//boardListDetail
+	@GetMapping("/boardListDetail")
+	public String boardListDetail(HttpSession session, Model model, int boardNo) {
+		//session
+		if(session.getAttribute("loginAdmin") == null && session.getAttribute("loginMember") == null) {
+			return "redirect:/login";
+		}
+		
+		Board b = boardService.boardListDetail(boardNo);
+		model.addAttribute("b", b);
+		
+		return "boardListDetail";
+	}
+	
 	//insert board
 	@GetMapping("/addBoard")
 	public String addBoard(HttpSession session,Model model) {

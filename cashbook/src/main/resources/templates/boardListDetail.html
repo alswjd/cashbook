@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>boardListDetail</title>
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<!-- Popper JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+<style th:include="/include/menu::css"></style>
+</head>
+<body>
+ <div id="aside">
+    <div th:include="/include/menu::sidemenu" class="sidenav"></div>     
+ </div>
+  <div id="section">
+  		
+	<table class="table">
+		<tr>
+			<td>board No</td>
+			<td><input type="hidden" id="boardNo" name="boardNo" th:text="${b.boardNo}" readonly="readonly"></td>
+		</tr>	
+  		<tr>	
+  			<td>ID</td>
+  			<td>
+  				<input type="hidden" id="adminId" name="adminId" th:text="${b.adminId}">
+  				<input type="hidden" id="memberId" name="memberId" th:text="${b.memberId}">
+	  		</td>
+  		</tr>	
+  		<tr>	
+  			<td>board title</td>
+  			<td><input type="hidden" id="boardTitle" name="boardTitle" th:text="${b.boardTitle}" readonly="readonly"></td>
+  		</tr>
+  		<tr>	
+  			<td>board content</td>
+  			<td><textarea rows="20" cols="70" id="boardContent" name="boardContent" th:text="${b.boardContent}" readonly="readonly"></textarea></td>
+  		</tr>
+	</table>
+	<div>
+		<!-- 관리자일 경우 -->
+  		<th:block th:if="${session.loginAdmin?.adminId}" >
+			<a th:href="@{/getBoardListAdmin}" class="btn btn-primary">뒤로가기</a>
+		</th:block>
+		<!-- 일반회원일 경우 -->
+	  	<th:block  th:if="${session.loginMember?.memberId}">
+			<a th:href="@{/getBoardListMember}" class="btn btn-primary">뒤로가기</a>
+		</th:block>
+	</div>
+  </div>
+</body>
+</html>
