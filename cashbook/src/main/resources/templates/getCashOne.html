@@ -31,19 +31,32 @@
 		<table class="table">
 			<tr>
 				<td>cashNo</td>
-				<td><input type="text" th:value="${cash.cashNo}" id="cashNo" name="cashNo" readonly="readonly"></td>
+				<td><input type="hidden" th:text="${cash.cashNo}" th:value="${cash.cashNo}" id="cashNo" name="cashNo" readonly="readonly"></td>
 			</tr>
 			<tr>
 				<td>memberId</td>
-				<td><input type="text" th:value="${cash.memberId}" id="memberId" name="memberId" readonly="readonly"></td>
+				<td><input type="hidden" th:text="${cash.memberId}" th:value="${cash.memberId}" id="memberId" name="memberId" readonly="readonly"></td>
 			</tr>
 			<tr>
 				<td>cashKind</td>
-				<td><input type="text" th:value="${cash.cashKind}" id="cashKind" name="cashKind"></td>
+				<td>
+					<select name="cashKind">
+					 	<option value="${cash.cashKind}" th:text="${cash.cashKind}"></option>
+					 	<option value="수입">수입</option>
+					 	<option value="지출">지출</option>
+					</select>
+				</td>
 			</tr>
 			<tr>
 				<td>categoryName</td>
-				<td><input type="text" th:value="${cash.categoryName}" id="categoryName" name="categoryName"></td>
+				<td>
+					<select name="categoryName">
+						<option value="${cash.categoryName}" th:text="${cash.categoryName}"></option>
+						<option value="쇼핑">쇼핑</option>
+						<option value="술">술</option>
+						<option value="월급">월급</option>
+					</select>
+				</td>
 			</tr>
 				<td>cashPrice</td>
 				<td><input type="text" th:value="${cash.cashPrice}" id="cashPrice" name="cashPrice"></td>
