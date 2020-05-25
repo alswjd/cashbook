@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.gdu.cashbook.service.BoardService;
 import com.gdu.cashbook.vo.Admin;
@@ -21,6 +22,24 @@ public class BoardController {
 
 	@Autowired
 	private BoardService boardService;
+	
+	//deleteBoard
+	@GetMapping("/removeBoard")
+	public String removeBoard(HttpSession session, @RequestParam("boardNo") int boardNo) {
+		//loginAdmin
+		if(session.getAttribute("loginAdmin") != null) {
+			boardService.removeBoard(boardNo);
+			return "redirect:/getBoardListAdmin";
+		}
+		
+		//loginMember
+		if(session.getAttribute("loginMember") != null) {
+			boardService.removeBoard(boardNo);
+			return "redirect:/getBoardListMember";
+		}
+		
+		return "redirect:/index";
+	}
 	
 	//boardListDetail
 	@GetMapping("/boardListDetail")

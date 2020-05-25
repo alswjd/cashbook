@@ -44,8 +44,8 @@
   			<!-- 관리자의 로그인 값으로 로그인 되어 있을 때 자신의 글에만 수정 삭제 가능 -->
 			<td>
 				<th:block th:if="${b.adminId != null}" >
-					<a th:href="@{/removeBoard}">삭제</a>
-	  				<a th:href="@{/modifyBoard}">수정</a>
+					<a th:href="@{/removeBoard(boardNo=${b.boardNo})}">삭제</a>
+	  				<a th:href="@{/modifyBoard(boardNo=${b.boardNo})}">수정</a>
 				</th:block>
 			</td>
   		</tr>

@@ -4,15 +4,10 @@ public class Board {
 	private int boardNo;
 	private String memberId;
 	private String adminId;
-	public String getAdminId() {
-		return adminId;
-	}
-	public void setAdminId(String adminId) {
-		this.adminId = adminId;
-	}
 	private String boardTitle;
 	private String boardContent;
 	private String boardDate;
+	
 	public int getBoardNo() {
 		return boardNo;
 	}
@@ -25,8 +20,14 @@ public class Board {
 	public void setMemberId(String memberId) {
 		this.memberId = memberId;
 	}
+	public String getAdminId() {
+		return adminId;
+	}
 	public String getBoardTitle() {
 		return boardTitle;
+	}
+	public void setAdminId(String adminId) {
+		this.adminId = adminId;
 	}
 	public void setBoardTitle(String boardTitle) {
 		this.boardTitle = boardTitle;

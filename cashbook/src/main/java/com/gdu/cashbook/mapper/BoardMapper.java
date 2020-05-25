@@ -17,4 +17,6 @@ public interface BoardMapper {
 	public int insertBoard(Board board);
 	//boardListDetail
 	public Board boardListDetail(int boardNo);
+	//deleteBoard
+	public int deleteBoard(int boardNo);
 }
