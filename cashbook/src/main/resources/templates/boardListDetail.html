@@ -37,7 +37,7 @@
   		</tr>
   		<tr>	
   			<td>board content</td>
-  			<td><textarea rows="20" cols="70" id="boardContent" name="boardContent" th:text="${b.boardContent}" readonly="readonly"></textarea></td>
+  			<td><textarea rows="10" cols="100" id="boardContent" name="boardContent" th:text="${b.boardContent}" readonly="readonly"></textarea></td>
   		</tr>
 	</table>
 	<div>
@@ -50,6 +50,28 @@
 			<a th:href="@{/getBoardListMember}" class="btn btn-primary">뒤로가기</a>
 		</th:block>
 	</div>
+	
+	<!-- 댓글 -->
+	<h3>comment List</h3><br><br>
+	<table board="1" class="table">
+		<th:block th:each="c : ${comment}">
+			<tr>
+				<td>memberId</td>
+				<td>admminId</td>
+				<td>comment content</td>
+				<td>delete</td>
+				<td>update</td>
+			</tr>
+			<tr>
+				<td th:text="${c.memberId}"></td>
+				<td th:text="${c.adminId}"></td>
+				<td th:text="${c.commentContent}"></td>
+				<td><a >삭제</a></td>
+				<td><a >수정</a></td>
+			</tr>
+		</th:block>
+	</table>
+	
   </div>
 </body>
 </html>

@@ -2,7 +2,6 @@ package com.gdu.cashbook.controller;
 
 import java.util.List;
 
-
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,15 +12,53 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.gdu.cashbook.service.BoardService;
+import com.gdu.cashbook.service.CommentService;
 import com.gdu.cashbook.vo.Admin;
 import com.gdu.cashbook.vo.Board;
+import com.gdu.cashbook.vo.Comment;
 import com.gdu.cashbook.vo.LoginMember;
 
 @Controller
 public class BoardController {
 
-	@Autowired
-	private BoardService boardService;
+	@Autowired private BoardService boardService;
+	@Autowired private CommentService commentService;
+	
+	//modify Form
+	@GetMapping("/modifyBoard")
+	public String modifyBoard(HttpSession session, Model model, int boardNo) {
+		//session
+		if(session.getAttribute("loginAdmin") == null && session.getAttribute("loginMember") == null) {
+			return "redirect:/login";
+		}
+		
+		Board b = boardService.boardListDetail(boardNo);
+		model.addAttribute("b", b);
+		
+		return "modifyBoard";
+	}
+	
+	//modify Action
+	@PostMapping("/modifyBoard")
+	public String modifyBoard(HttpSession session, Board board) {
+		//loginAdmin
+		if(session.getAttribute("loginAdmin") != null) {
+			String loginAdmin = ((Admin)(session.getAttribute("loginAdmin"))).getAdminId();
+			boardService.modifyBoard(board);
+			return "redirect:/getBoardListAdmin";
+		}
+		
+		//loginMember
+		if(session.getAttribute("loginMember") != null) {
+			String loginMember = ((LoginMember)(session.getAttribute("loginMember"))).getMemberId();
+			boardService.modifyBoard(board);
+			return "redirect:/getBoardListMember";
+		}
+		
+		
+		return "redirect:/";
+	}
+	
 	
 	//deleteBoard
 	@GetMapping("/removeBoard")
@@ -51,6 +88,11 @@ public class BoardController {
 		
 		Board b = boardService.boardListDetail(boardNo);
 		model.addAttribute("b", b);
+		
+		//commentList
+		List<Comment> list = commentService.commentList(boardNo);
+		model.addAttribute("comment", list);
+		
 		
 		return "boardListDetail";
 	}

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gdu.cashbook.mapper.CommentMapper">  
+	<!-- comment list -->
+	<select id="commentList" resultType="com.gdu.cashbook.vo.Comment" parameterType="int"> 
+		SELECT
+			member_id memberId,
+			admin_id adminId,
+			comment_content commentContent
+		FROM comment
+		WHERE board_no = #{boardNo}
+	</select>
+</mapper>

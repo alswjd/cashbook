@@ -51,8 +51,8 @@ public class MemberService {
 		int row = memberMapper.updateMember(member);
 		
 		//2.파일 저장 
-		String path = "C:\\sts_files\\maven.1590063777153\\cashbook\\src\\main\\resources\\static\\upload\\"; //집
-				//"C:\\mj___\\stsSTS\\maven.1589424312961\\cashbook\\src\\main\\resources\\static\\upload\\"; //구디
+		String path = //"C:\\sts_files\\maven.1590063777153\\cashbook\\src\\main\\resources\\static\\upload\\"; //집
+				"C:\\mj___\\stsSTS\\maven.1590367608582\\cashbook\\src\\main\\resources\\static\\upload"; //구디
 		File file = new File(path + memberPic);
 		
 		try {
@@ -101,8 +101,8 @@ public class MemberService {
 		int row = memberMapper.insertMember(member);
 		
 		//2.파일 저장 - static에 upload 파일 경로
-		String path = "C:\\sts_files\\maven.1590063777153\\cashbook\\src\\main\\resources\\static\\upload\\"; //집
-					//"C:\\mj___\\stsSTS\\maven.1589424312961\\cashbook\\src\\main\\resources\\static\\upload\\"; //구디
+		String path = //"C:\\sts_files\\maven.1590063777153\\cashbook\\src\\main\\resources\\static\\upload\\"; //집
+					"C:\\mj___\\stsSTS\\maven.1590367608582\\cashbook\\src\\main\\resources\\static\\upload"; //구디
 		File file = new File(path + memberPic);
 		
 		//기존의 파일 삭제
@@ -130,8 +130,8 @@ public class MemberService {
 		//1-1 파일 이름 select member_pic from member
 		String memberPic = memberMapper.selectMemberPic(loginMember.getMemberId());
 		//1-2 파일 삭제
-		String path = "C:\\sts_files\\maven.1590063777153\\cashbook\\src\\main\\resources\\static\\upload\\"; //집
-					//"C:\\mj___\\stsSTS\\maven.1589424312961\\cashbook\\src\\main\\resources\\static\\upload\\"; //구디
+		String path = //"C:\\sts_files\\maven.1590063777153\\cashbook\\src\\main\\resources\\static\\upload\\"; //집
+					"C:\\mj___\\stsSTS\\maven.1590367608582\\cashbook\\src\\main\\resources\\static\\upload"; //구디
 		File file = new File(path +"\\"+ memberPic);
 		if(file.exists()) {
 			file.delete();

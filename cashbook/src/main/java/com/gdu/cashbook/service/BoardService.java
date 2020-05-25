@@ -14,7 +14,10 @@ public class BoardService {
 	@Autowired
 	private BoardMapper boardMapper;
 	
-	
+	//modifyBoard
+	public int modifyBoard(Board board) {
+		return boardMapper.updateBoard(board);
+	}
 	
 	//deleteBoard
 	public int removeBoard(int boardNo) {
