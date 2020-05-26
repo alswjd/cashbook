@@ -13,8 +13,18 @@ public class CommentService {
 
 	@Autowired private CommentMapper commentMapper;
 	
+	//removeComment
+	public int removeComment(int commentNo) {
+		return commentMapper.deleteComment(commentNo);
+	}
+	
 	//commentList
 	public List<Comment> commentList(int boardNo){
 		return commentMapper.commentList(boardNo);
+	}
+	
+	//insertComment
+	public int addComment(Comment comment) {
+		return commentMapper.insertComment(comment);
 	}
 }

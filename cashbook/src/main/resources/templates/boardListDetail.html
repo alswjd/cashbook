@@ -11,6 +11,17 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <!-- Latest compiled JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+<script>
+	$(document).ready(function(){
+		$('#btn').click(function(){
+			if($('#commentContent').val() == ''){
+				alert("댓글 내용을 입력하시지 않았습니다.");
+				return;
+			}
+			$('#commentForm').submit();
+		});
+	});
+</script>
 <style th:include="/include/menu::css"></style>
 </head>
 <body>
@@ -49,25 +60,45 @@
 	  	<th:block  th:if="${session.loginMember?.memberId}">
 			<a th:href="@{/getBoardListMember}" class="btn btn-primary">뒤로가기</a>
 		</th:block>
-	</div>
+	</div><br><br>
 	
 	<!-- 댓글 -->
-	<h3>comment List</h3><br><br>
+	<h3>comment List</h3>
+	<!-- 댓글입력창	 -->
+	<div class="container mt-3">
+	  <form method="post" action="/addComment" id="commentForm">
+	    <div class="input-group mb-3">
+	      <input type="hidden" th:value="${b.boardNo}" name="boardNo">
+	      <input type="hidden" th:value="${session.loginMember?.memberId}" name="memberId">
+	      <input type="hidden" th:value="${session.loginAdmin?.adminId}" name="adminId">
+	      <input type="text" class="form-control" placeholder="댓글을 입력하세요." id="commentContent" name="commentContent">
+	      <div class="input-group-append">
+	        <button class="input-group-text" type="button" id="btn">입력하기</button>
+	      </div>
+	    </div>
+	  </form>
+	</div>
+	<br>
 	<table board="1" class="table">
-		<th:block th:each="c : ${comment}">
-			<tr>
+			<tr>	
+				<td>ADMIN</td>
 				<td>memberId</td>
-				<td>admminId</td>
 				<td>comment content</td>
 				<td>delete</td>
-				<td>update</td>
 			</tr>
+		<th:block th:each="c : ${comment}">
 			<tr>
-				<td th:text="${c.memberId}"></td>
 				<td th:text="${c.adminId}"></td>
+				<td th:text="${c.memberId}"></td>
 				<td th:text="${c.commentContent}"></td>
-				<td><a >삭제</a></td>
-				<td><a >수정</a></td>
+				<td>
+					<th:block th:if="${session.loginMember?.memberId == c.memberId}">
+						<a th:href="@{/removeComment(commentNo=${c.commentNo}, boardNo=${c.boardNo})}">삭제&nbsp;&nbsp;&nbsp;&nbsp;</a>
+					</th:block>
+					<th:block th:if="${session.loginAdmin?.adminId == c.adminId}">
+						<a th:href="@{/removeComment(commentNo=${c.commentNo}, boardNo=${c.boardNo})}">삭제&nbsp;&nbsp;&nbsp;&nbsp;</a>
+					</th:block>
+				</td>
 			</tr>
 		</th:block>
 	</table>

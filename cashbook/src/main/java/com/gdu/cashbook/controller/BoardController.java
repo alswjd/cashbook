@@ -24,6 +24,25 @@ public class BoardController {
 	@Autowired private BoardService boardService;
 	@Autowired private CommentService commentService;
 	
+	
+	/*COMMENT*/
+	//addComment action
+	@PostMapping("/addComment")
+	public String addComment(Comment comment) {
+		System.out.println(comment+"<---comment");
+		
+		commentService.addComment(comment);
+		return "redirect:/boardListDetail?boardNo="+comment.getBoardNo();
+	}
+	
+	//remove comment
+	@GetMapping("/removeComment")
+	public String removeComment(@RequestParam(value="commentNo", required=false)int commentNo,@RequestParam(value="boardNo", required=false)int boardNo) {
+		commentService.removeComment(commentNo);
+		return "redirect:/boardListDetail?boardNo="+boardNo;
+	}
+	
+	/*BOARD*/
 	//modify Form
 	@GetMapping("/modifyBoard")
 	public String modifyBoard(HttpSession session, Model model, int boardNo) {
@@ -80,10 +99,16 @@ public class BoardController {
 	
 	//boardListDetail
 	@GetMapping("/boardListDetail")
-	public String boardListDetail(HttpSession session, Model model, int boardNo) {
+	public String boardListDetail(HttpSession session, Model model, @RequestParam(value="boardNo", required=false)int boardNo) {
 		//session
 		if(session.getAttribute("loginAdmin") == null && session.getAttribute("loginMember") == null) {
 			return "redirect:/login";
+		}
+		
+		if(session.getAttribute("loginAdmin") != null) {
+			model.addAttribute("loginAdmin", session.getAttribute("loginAdmin"));
+		}else if(session.getAttribute("loginMember") != null) {
+			model.addAttribute("loginMember", session.getAttribute("loginMember"));	
 		}
 		
 		Board b = boardService.boardListDetail(boardNo);
@@ -92,7 +117,6 @@ public class BoardController {
 		//commentList
 		List<Comment> list = commentService.commentList(boardNo);
 		model.addAttribute("comment", list);
-		
 		
 		return "boardListDetail";
 	}

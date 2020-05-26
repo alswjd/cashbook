@@ -11,4 +11,8 @@ public interface CommentMapper {
 
 	//commentList
 	public List<Comment> commentList(int boardNo);
+	//insertComment
+	public int insertComment(Comment comment);
+	//deleteComment
+	public int deleteComment(int commentNo);
 }
