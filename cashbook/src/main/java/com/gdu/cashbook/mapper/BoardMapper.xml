@@ -33,7 +33,7 @@
 	</select>
 	
 	<!-- 관리자용 게시판 리스트 -->
-	<select id="boardListAllAdmin" resultType="com.gdu.cashbook.vo.Board" >
+	<select id="boardListAllAdmin" resultType="com.gdu.cashbook.vo.Board" parameterType="java.util.Map">
 		SELECT 
 			board_no boardNo,
 			member_id memberId,
@@ -42,10 +42,17 @@
 			board_content boardContent,
 			board_date boardDate
 		FROM board
+		LIMIT #{beginRow},#{rowPerPage}
+	</select>
+	
+	<!-- 관리자용 게시판 리스트 COUNT -->
+	<select id="listAdminCount" resultType="int">
+		SELECT COUNT(*)
+		FROM board
 	</select>
 	
 	<!-- 일반 회원용 게시판 리스트 -->
-	<select id="boardListAllMember" resultType="com.gdu.cashbook.vo.Board" parameterType="com.gdu.cashbook.vo.Board">
+	<select id="boardListAllMember" resultType="com.gdu.cashbook.vo.Board" parameterType="java.util.Map">
 		SELECT
 			board_no boardNo,
 			member_id memberId,
@@ -53,6 +60,16 @@
 			board_title boardTitle,
 			board_content boardContent,
 			board_date boardDate
+		FROM board
+		WHERE member_id = #{board.memberId
+		}
+		OR admin_id = 'admin'
+		LIMIT #{beginRow},#{rowPerPage}
+	</select>
+	
+	<!-- 일반 회원용 게시판 COUNT -->
+	<select id="listMemberCount" resultType="int">
+		SELECT COUNT(*)
 		FROM board
 		WHERE member_id = #{memberId}
 		OR admin_id = 'admin'

@@ -1,6 +1,8 @@
 package com.gdu.cashbook.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -162,7 +164,7 @@ public class BoardController {
 	
 	//관리자용 게시판 리스트
 	@GetMapping("/getBoardListAdmin")
-	public String getBordListAdmin(HttpSession session, Model model) {
+	public String getBordListAdmin(HttpSession session, Model model,@RequestParam(value = "currentPage", defaultValue = "1") int currentPage) {
 		//session
 		if(session.getAttribute("loginAdmin") == null ) {
 			return "redirect:/login";
@@ -175,18 +177,23 @@ public class BoardController {
 		Board board = new Board();
 		board.setAdminId(loginAdmin);
 		
+		int rowPerPage = 8;
+		int beginRow = (currentPage -1)*rowPerPage;
+		
 		//list
-		List<Board> b = boardService.getBoardListAllAdmin(board);
+		Map<String, Object> map = boardService.getBoardListAllAdmin(beginRow,rowPerPage,board);
 		
 		//model
-		model.addAttribute("board", b);
+		model.addAttribute("list", map.get("list"));
+		model.addAttribute("lastPage", map.get("lastPage"));
+		model.addAttribute("currentPage", currentPage);
 		
 		return "getBoardListAdmin";
 	}
 	
 	//일반회원용 게시판 리스트
 	@GetMapping("/getBoardListMember")
-	public String getBoardListMember(HttpSession session, Model model) {
+	public String getBoardListMember(HttpSession session, Model model,@RequestParam(value = "currentPage", defaultValue = "1")int currentPage) {
 		//session
 		if(session.getAttribute("loginMember") == null) {
 			return "redirect:/login";
@@ -199,11 +206,16 @@ public class BoardController {
 		Board board = new Board();
 		board.setMemberId(loginMember);
 		
+		int rowPerPage = 8;
+		int beginRow = (currentPage - 1)*rowPerPage;
+		
 		//list
-		List<Board> b = boardService.getBoardListAllMember(board);
+		Map<String,Object> map = boardService.getBoardListAllMember(beginRow, rowPerPage, board);
 		
 		//model
-		model.addAttribute("board", b);
+		model.addAttribute("list", map.get("list"));
+		model.addAttribute("currentPage",currentPage);
+		model.addAttribute("lastPage", map.get("lastPage"));
 		
 		return "getBoardListMember";
 	}

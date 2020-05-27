@@ -105,12 +105,7 @@ div.memberId {
       </div><br><br><br>
       
        <a th:href="@{/home}">홈</a><br><br>
-       
-       <!-- 관리자 회원 정보 -->
-       <div th:if="${session.loginAdmin?.adminId}">
-       		<a th:href="@{/adminInfo}">관리자 회원정보</a><br><br>
-       </div>
-       
+      
        <!-- 일반 회원 정보 -->
        <div th:if="${session.loginMember?.memberId}">
        		<a th:href="@{/memberInfo}">회원정보</a><br><br>

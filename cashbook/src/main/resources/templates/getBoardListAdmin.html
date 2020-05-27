@@ -19,10 +19,16 @@
  </div>
   <div id="section">
   <h1>QnA</h1><br><br><br>
-  <div>
-  	  <a th:href="@{/addBoard}" class="btn btn-primary">입력하기</a><br><br>
-  </div>
-   	<table class="table border">
+  	<div class="d-flex">
+		<a th:if="${currentPage} != 1" th:href="@{/getBoardListAdmin(currentPage=${currentPage-1})}" class="btn btn-primary">이전</a>&nbsp;&nbsp;&nbsp;&nbsp;
+		<a th:if="${currentPage} != ${lastPage}" th:href="@{/getBoardListAdmin(currentPage=${currentPage+1})}" class="btn btn-primary">다음</a>
+ 	 </div>
+ 	 <br>
+	 <div>
+	  	 <a th:href="@{/addBoard}" class="btn btn-primary">입력하기</a>
+	 </div>
+	 <br><br>
+     <table class="table border">
   		<tr>
   			<td>board no</td>
   			<td>member id</td>
@@ -32,7 +38,7 @@
   			<td>board date</td>
   			<td>삭제/수정</td>
   		</tr>
-  		<tr th:each="b: ${board}">
+  		<tr th:each="b: ${list}">
   			<td th:text="${b.boardNo}"></td>
   			<td th:text="${b.memberId}"></td>
   			<td th:text="${b.adminId}"></td>

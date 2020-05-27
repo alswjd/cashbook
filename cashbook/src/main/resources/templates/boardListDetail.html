@@ -29,7 +29,9 @@
     <div th:include="/include/menu::sidemenu" class="sidenav"></div>     
  </div>
   <div id="section">
-  		
+  	<!-- 관리자가 작성한 글에는 (관리자) 글씨가 보이도록 설정 -->
+  	<br><br><h3 align="center"><span th:text="${b.boardNo}"></span>번 게시글</h3>
+  			<h4 align="center" th:if="${b.adminId != null}">(관리자)</h4><br><br>
 	<table class="table">
 		<tr>
 			<td>board No</td>

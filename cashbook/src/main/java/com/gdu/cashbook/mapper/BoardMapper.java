@@ -10,9 +10,13 @@ import com.gdu.cashbook.vo.Member;
 @Mapper
 public interface BoardMapper {
 	//관리자용 게시판
-	public List<Board> boardListAllAdmin(Board board);
+	public List<Board> boardListAllAdmin(int beginRow, int rowPerPage, Board board);
+	//관리자용 게시판 COUNT
+	public int listAdminCount();
 	//일반회원용 게시판
-	public List<Board> boardListAllMember(Board board);
+	public List<Board> boardListAllMember(int beginRow, int rowPerPage,Board board);
+	//일반회원용 게시판 COUNT
+	public int listMemberCount();
 	//insert board
 	public int insertBoard(Board board);
 	//boardListDetail
