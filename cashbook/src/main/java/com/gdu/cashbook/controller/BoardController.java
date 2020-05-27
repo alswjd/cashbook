@@ -164,7 +164,8 @@ public class BoardController {
 	
 	//관리자용 게시판 리스트
 	@GetMapping("/getBoardListAdmin")
-	public String getBordListAdmin(HttpSession session, Model model,@RequestParam(value = "currentPage", defaultValue = "1") int currentPage) {
+	public String getBordListAdmin(HttpSession session, Model model,@RequestParam(value = "currentPage", defaultValue = "1") int currentPage,
+			@RequestParam(value= "boardTitle", defaultValue = "") String boardTitle) {
 		//session
 		if(session.getAttribute("loginAdmin") == null ) {
 			return "redirect:/login";
@@ -176,6 +177,9 @@ public class BoardController {
 		//로그인 된 세선값 넣기
 		Board board = new Board();
 		board.setAdminId(loginAdmin);
+		board.setBoardTitle(boardTitle);
+		
+		System.out.println(boardTitle +"<--검색");
 		
 		int rowPerPage = 8;
 		int beginRow = (currentPage -1)*rowPerPage;

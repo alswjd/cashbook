@@ -7,7 +7,6 @@ import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
-import org.apache.coyote.http2.HpackDecoder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
@@ -18,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.gdu.cashbook.service.CashService;
 import com.gdu.cashbook.vo.Cash;
+import com.gdu.cashbook.vo.Category;
 import com.gdu.cashbook.vo.DayAndPrice;
 import com.gdu.cashbook.vo.LoginMember;
 
@@ -34,8 +34,11 @@ public class CashController {
 			return "redirect:/login";
 		}
 		
+		List<Category> category = cashService.categoryName();
+		
 		String memberId = ((LoginMember)(session.getAttribute("loginMember"))).getMemberId();
 		model.addAttribute("memberId", memberId);
+		model.addAttribute("category", category);
 		
 		return "addCash";
 	}
@@ -54,6 +57,9 @@ public class CashController {
 		if(session.getAttribute("loginMember") == null) { 
 			return "redirect:/login";
 		}
+		
+		List<Category> category = cashService.categoryName();
+		model.addAttribute("category", category);
 		
 		Cash cashOne = cashService.getCashOne(cashNo);
 		model.addAttribute("cash", cashOne);

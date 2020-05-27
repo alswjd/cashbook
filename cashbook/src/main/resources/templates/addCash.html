@@ -44,9 +44,7 @@
 				<td>
 					<select name="categoryName">
 						<option value="">카테고리</option>
-						<option value="쇼핑">쇼핑</option>
-						<option value="술">술</option>
-						<option value="월급">월급</option>
+						<option th:each="category : ${category}" th:value="${category.categoryName}" th:text="${category.categoryName}"></option>
 					</select>
 				</td>
 			</tr>

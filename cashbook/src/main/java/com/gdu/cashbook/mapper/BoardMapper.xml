@@ -42,6 +42,7 @@
 			board_content boardContent,
 			board_date boardDate
 		FROM board
+		WHERE board_title LIKE CONCAT('%',#{board.boardTitle},'%')
 		LIMIT #{beginRow},#{rowPerPage}
 	</select>
 	
@@ -49,6 +50,13 @@
 	<select id="listAdminCount" resultType="int">
 		SELECT COUNT(*)
 		FROM board
+	</select>
+	
+	<!-- 관리자용 게시판 리스트 COUNT - 검색-->
+	<select id="listAdminCountSearch" resultType="int" parameterType="String">
+		SELECT COUNT(*)
+		FROM board
+		WHERE board_title = #{boardTitle}
 	</select>
 	
 	<!-- 일반 회원용 게시판 리스트 -->
@@ -61,14 +69,13 @@
 			board_content boardContent,
 			board_date boardDate
 		FROM board
-		WHERE member_id = #{board.memberId
-		}
+		WHERE member_id = #{board.memberId}
 		OR admin_id = 'admin'
 		LIMIT #{beginRow},#{rowPerPage}
 	</select>
 	
 	<!-- 일반 회원용 게시판 COUNT -->
-	<select id="listMemberCount" resultType="int">
+	<select id="listMemberCount" resultType="int" parameterType="com.gdu.cashbook.vo.Board">
 		SELECT COUNT(*)
 		FROM board
 		WHERE member_id = #{memberId}

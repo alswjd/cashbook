@@ -47,7 +47,7 @@
 </div>
   <div id="section">
 	<h1>월별 가계부 관리</h1>
-	<h3 th:text="${#temporals.format(day, 'yyyy-mm')}"></h3>
+	
 	<div>
 		<a th:href="@{/getCashListByMonth(day = ${day.plusMonths(-1)})}" class="prev btn btn-primary">이전</a>
 		<a th:href="@{/getCashListByMonth(day = ${day.plusMonths(+1)})}" class="next btn btn-primary">다음</a>
@@ -63,12 +63,13 @@
 		<div class="gd-left gd-title">토</div>
 		
 	    <div th:each="i,index : ${#numbers.sequence(1, lastDay + (firstDayOfWeek - 1))}" 
-	    	 th:class="${index.index % 7} == 0 ? 'gd-clear gd-left': 'gd-left'">
-	    	 <div th:text="${i - (firstDayOfWeek - 1)}>  0 ? ${i - (firstDayOfWeek - 1)} : ''"></div><!-- 날짜 --> 
-	    	 <div th:each="dp : ${dayAndPriceList}"> <!-- 수입지출합계 -->
-	    	 	<span th:if="${i - (firstDayOfWeek - 1) == dp.day}">
-	    	 		<span th:class="${dp.price} > 0 ? 'gd-blue' : 'gd-red' " th:text="${dp.price}"></span>
-	    	 	</span>
+	    										 th:class="${index.index % 7} == 0 ? 'gd-clear gd-left': 'gd-left'">
+	    	 <!-- 날짜 --> 
+	    	 <div th:text="${i - (firstDayOfWeek - 1)}>  0 ? ${i - (firstDayOfWeek - 1)} : ''"></div>
+	    	 
+	    	 <!-- 수입지출합계 -->
+	    	 <div th:each="dp : ${dayAndPriceList}">
+	    	 	<span th:if="${i - (firstDayOfWeek - 1) == dp.day}" th:class="${dp.price} > 0 ? 'gd-blue' : 'gd-red' " th:text="${dp.price}"></span>
 	    	 </div>
 	    </div>
 	</div>	

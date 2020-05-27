@@ -42,7 +42,17 @@ public class BoardService {
 		map.put("rowPerPage", rowPerPage);
 		
 		//total row
-		int totalRow = boardMapper.listAdminCount();
+		int totalRow = 0;
+		
+		String boardTitle = board.getBoardTitle();
+		
+		//search
+		if(board.getBoardTitle().equals("")) {
+			totalRow = boardMapper.listAdminCount();
+		}else {
+			totalRow = boardMapper.listAdminCountSearch(boardTitle);
+		}
+		
 		int lastPage = totalRow / rowPerPage ;
 		
 		if((totalRow / rowPerPage) != 0) {
@@ -71,13 +81,15 @@ public class BoardService {
 		map.put("list", list);
 		
 		//total Row
-		int totalRow = boardMapper.listMemberCount();
+		int totalRow = boardMapper.listMemberCount(board.getMemberId());
+		System.out.println(totalRow+"totalRow");
 		int lastPage = totalRow / rowPerPage;
 		
 		if((totalRow / rowPerPage) != 0) {
 			lastPage += 1;
-		}
+		} 
 		
+		System.out.println(lastPage+"lastPage");
 		map.put("lastPage", lastPage);
 		
 		return map;

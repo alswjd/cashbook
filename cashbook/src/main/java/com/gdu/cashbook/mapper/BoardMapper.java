@@ -13,10 +13,12 @@ public interface BoardMapper {
 	public List<Board> boardListAllAdmin(int beginRow, int rowPerPage, Board board);
 	//관리자용 게시판 COUNT
 	public int listAdminCount();
+	//관리자 검색 카운트
+	public int listAdminCountSearch(String boardTitle);
 	//일반회원용 게시판
 	public List<Board> boardListAllMember(int beginRow, int rowPerPage,Board board);
 	//일반회원용 게시판 COUNT
-	public int listMemberCount();
+	public int listMemberCount(String memberId);
 	//insert board
 	public int insertBoard(Board board);
 	//boardListDetail

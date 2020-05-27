@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.gdu.cashbook.mapper.CashMapper;
 import com.gdu.cashbook.vo.Cash;
+import com.gdu.cashbook.vo.Category;
 import com.gdu.cashbook.vo.DayAndPrice;
 
 @Service
@@ -25,6 +26,11 @@ public class CashService {
 	public int modifyCash(Cash cash) {
 		System.out.println("modify");
 		return cashMapper.updateCash(cash);
+	}
+	
+	//categoryName
+	public List<Category> categoryName(){
+		return cashMapper.categoryName();
 	}
 	
 	//수정 폼

@@ -32,7 +32,7 @@ public class MemberController {
 		if(session.getAttribute("loginMember") == null) {
 			return "redirect:/index";
 		}
-		System.out.println(memberForm);
+		System.out.println(memberForm+"<==memberForm");
 		
 		if(memberForm.getMemberPic() != null) {
 			if(!memberForm.getMemberPic().getContentType().equals("image/jpeg") 

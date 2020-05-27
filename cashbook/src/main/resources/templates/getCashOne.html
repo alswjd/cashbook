@@ -41,7 +41,7 @@
 				<td>cashKind</td>
 				<td>
 					<select name="cashKind">
-					 	<option value="${cash.cashKind}" th:text="${cash.cashKind}"></option>
+					 	<option th:value="${cash.cashKind}" th:text="${cash.cashKind}"></option>
 					 	<option value="수입">수입</option>
 					 	<option value="지출">지출</option>
 					</select>
@@ -51,10 +51,8 @@
 				<td>categoryName</td>
 				<td>
 					<select name="categoryName">
-						<option value="${cash.categoryName}" th:text="${cash.categoryName}"></option>
-						<option value="쇼핑">쇼핑</option>
-						<option value="술">술</option>
-						<option value="월급">월급</option>
+						<option th:value="${cash.categoryName}" th:text="${cash.categoryName}"></option>
+						<option th:each="c : ${category}" th:value="${c.categoryName}" th:text="${c.categoryName}"></option>
 					</select>
 				</td>
 			</tr>
