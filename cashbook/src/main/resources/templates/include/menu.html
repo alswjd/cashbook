@@ -113,8 +113,8 @@ div.memberId {
        
 	   <!-- 관리자는 아래 링크를 보이게 하지 않음 -->
 	   <div th:if="${session.loginMember?.memberId}">
-	       <a th:href="@{/getCashListByDate}">일별 가게부 관리</a><br><br>
-	       <a th:href="@{/getCashListByMonth}">월별 가게부 관리</a><br><br>
+	       <a th:href="@{/getCashListByDate}">일별 가계부 관리</a><br><br>
+	       <a th:href="@{/getCashListByMonth}">월별 가계부 관리</a><br><br>
 	   </div>
 	   
        <!-- 일반 회원 로그인 시 게시판 -->
