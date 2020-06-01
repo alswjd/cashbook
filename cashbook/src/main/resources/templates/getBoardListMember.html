@@ -17,22 +17,29 @@
  <div id="aside">
     <div th:include="/include/menu::sidemenu" class="sidenav"></div>     
  </div>
-  <div id="section">
-  <h1>QnA</h1><br><br><br>
-  <div class="d-flex ">
-  	  <a th:href="@{/addBoard}" class="btn btn-primary">입력하기</a>
+  <div id="section" style="margin-top: 80px;border-right-width: 50px;margin-right: 50px;">
+  <h1 align="center">QnA</h1><br><br><br>	
+  <div>
+  	 <a th:if="${currentPage} != 1" th:href="@{/getBoardListMember(currentPage=${currentPage -1})}" class="btn btn-primary">이전</a>&nbsp;&nbsp;&nbsp;&nbsp;
+  	 <a th:if="${currentPage} != ${lastPage}" th:href="@{/getBoardListMember(currentPage=${currentPage +1})}" class="btn btn-primary">다음</a>
   </div>
-  <br><br>
+  <br>
+  <div align="right" style="margin-right: 50px;">
+  	  <a th:href="@{/addBoard}" class="btn btn-primary">입력하기</a>	
+  </div>
+  <br>
    	<table class="table border">
-  		<tr>
-  			<td>board no</td>
-  			<td>member id</td>
-  			<td>admin id</td>
-  			<td>board title</td>
-  			<td>board content</td>
-  			<td>board date</td>
-  			<td>삭제/수정</td>
-  		</tr>
+  		<thead class="thead-light">
+	  		<tr>
+	  			<th>board no</th>
+	  			<th>member id</th>
+	  			<th>admin id</th>
+	  			<th>board title</th>
+	  			<th>board content</th>
+	  			<th>board date</th>
+	  			<th>삭제/수정</th>
+	  		</tr>
+	  	</thead>
   		<tr th:each="b: ${list}">
   			<td th:text="${b.boardNo}"></td>
   			<td th:text="${b.memberId}"></td>
@@ -51,10 +58,6 @@
 			</td>
   		</tr>
   	</table><br><br><br>
-  	 <div>
-  	  <a th:if="${currentPage} != 1" th:href="@{/getBoardListMember(currentPage=${currentPage -1})}" class="btn btn-primary">이전</a>&nbsp;&nbsp;&nbsp;&nbsp;
-  	  <a th:if="${currentPage} != ${lastPage}" th:href="@{/getBoardListMember(currentPage=${currentPage +1})}" class="btn btn-primary">다음</a>
-  	</div>
   </div>
 </body>
 </html>

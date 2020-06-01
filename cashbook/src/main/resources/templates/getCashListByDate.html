@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" style="margin-top: 100px;">
 <head>
 <meta charset="UTF-8">
 <title>index</title>
@@ -25,11 +25,11 @@
     <div th:include="/include/menu::sidemenu" class="sidenav"></div>     
  </div>
   <div id="section">
-	<h1>2020 가계부</h1>
-	<h1 class="text-center" th:text="${day}"></h1>
-	<div>
-		<a th:href="@{/getCashListByDate(day = ${day.plusDays(-1)})}" class="prev btn btn-primary">이전</a>&nbsp;&nbsp;&nbsp;&nbsp;
-		<a th:href="@{/getCashListByDate(day = ${day.plusDays(+1)})}" class="next btn btn-primary">다음</a><br><br>
+  <br>
+	<h1 class="text-center" th:text="${day}"></h1><br>
+	<div class="clearfix">
+		<a th:href="@{/getCashListByDate(day = ${day.plusDays(-1)})}" class="float-left btn btn-primary">이전</a>&nbsp;&nbsp;&nbsp;&nbsp;
+		<a th:href="@{/getCashListByDate(day = ${day.plusDays(+1)})}" class="float-right btn btn-primary">다음</a><br><br>
 	</div>
 	<table class="table">
 		<thead>

@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" style="margin-top: 100px;margin-right: 130px;">
 <head>
 <meta charset="UTF-8">
 <title>index</title>
 <style>
 	div.gd-left{
        float: left;
-       width: 100px; height: 100px;
+       width: 130px; height: 100px;
        border: 1px solid #000000;
        margin-right: 10px;
        margin-bottom: 10px; 
@@ -46,14 +46,12 @@
     <div th:include="/include/menu::sidemenu" class="sidenav"></div>     
 </div>
   <div id="section">
-	<h1>월별 가계부 관리</h1>
-	
-	<div>
-		<a th:href="@{/getCashListByMonth(day = ${day.plusMonths(-1)})}" class="prev btn btn-primary">이전</a>
-		<a th:href="@{/getCashListByMonth(day = ${day.plusMonths(+1)})}" class="next btn btn-primary">다음</a>
+	<div class="clearfix">
+		<a th:href="@{/getCashListByMonth(day = ${day.plusMonths(-1)})}" class="float-left btn btn-outline-primary">이전</a>
+		<a th:href="@{/getCashListByMonth(day = ${day.plusMonths(+1)})}" class="float-right btn btn-outline-primary">다음</a>
 	</div>
 	<div align="center">
-		<h3 th:text="${month + '월'}"></h3> <!-- cDay.get(Calendar.MONTH)+1 -->
+		<h3 align="center" th:text="${month + '월'}"></h3><br> <!-- cDay.get(Calendar.MONTH)+1 -->
 		<div class="gd-left gd-clear gd-title">일</div>
 		<div class="gd-left gd-title">월</div>
 		<div class="gd-left gd-title">화</div>
@@ -61,7 +59,6 @@
 		<div class="gd-left gd-title">목</div>
 		<div class="gd-left gd-title">금</div>
 		<div class="gd-left gd-title">토</div>
-		
 	    <div th:each="i,index : ${#numbers.sequence(1, lastDay + (firstDayOfWeek - 1))}" 
 	    										 th:class="${index.index % 7} == 0 ? 'gd-clear gd-left': 'gd-left'">
 	    	 <!-- 날짜 --> 

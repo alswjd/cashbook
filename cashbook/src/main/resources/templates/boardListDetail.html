@@ -82,12 +82,14 @@
 	</div>
 	<br>
 	<table board="1" class="table">
+		<thead class="thead-light">
 			<tr>	
-				<td>ADMIN</td>
-				<td>memberId</td>
-				<td>comment content</td>
-				<td>delete</td>
+				<th>ADMIN</th>
+				<th>memberId</th>
+				<th>comment content</th>
+				<th>delete</th>
 			</tr>
+		</thead>	
 		<th:block th:each="c : ${comment}">
 			<tr>
 				<td th:text="${c.adminId}"></td>
