@@ -8,7 +8,7 @@
 		SELECT 
 			admin_id adminId,
 			admin_pw adminPw
-		FROM admin
+		FROM cashbook_admin
 		WHERE admin_id = #{adminId}
 		AND admin_pw = #{adminPw}
 	</select>

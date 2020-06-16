@@ -7,12 +7,12 @@
 	<select id="categoryName" resultType="com.gdu.cashbook.vo.Category">
 		SELECT
 			category_name categoryName
-		FROM category
+		FROM cashbook_category
 	</select>
 	
 	<!-- 입력 -->
 	<insert id="insertCash" parameterType="com.gdu.cashbook.vo.Cash">
-		INSERT INTO cash(
+		INSERT INTO cashbook_cash(
 			cash_no ,
 			member_id ,
 			cash_date ,
@@ -44,13 +44,13 @@
 			cash_price cashPrice,
 			cash_place cashPlace,
 			cash_memo cashMemo
-		FROM cash
+		FROM cashbook_cash
 		WHERE cash_no = #{cashNo}
 	</select>
 	
 	<!-- 수정 -->
 	<update id="updateCash" parameterType="com.gdu.cashbook.vo.Cash">
-		UPDATE cash
+		UPDATE cashbook_cash
 		SET
 			cash_kind = #{cashKind},
 			cash_date = NOW(),
@@ -66,7 +66,7 @@
 		SELECT DAY(cash_date) as day, 
 			   SUM(CASE WHEN cash_kind = '수입' THEN cash_price 
 			   			WHEN cash_kind = '지출' THEN -cash_price END) as price
-		FROM cash
+		FROM cashbook_cash
 		WHERE member_id = #{memberId} 
 		AND YEAR(cash_date) = #{year}
 		AND MONTH(cash_date) = #{month}
@@ -84,7 +84,7 @@
 	
 	<!-- 삭제 -->
 	<delete id="deleteCash" parameterType="String">
-		DELETE FROM cash
+		DELETE FROM cashbook_cash
 		WHERE cash_no = #{cashNo}
 	</delete>
 	
@@ -98,7 +98,7 @@
 			cash_price cashPrice,
 			cash_place cashPlace,
 			cash_memo cashMemo
-		FROM cash
+		FROM cashbook_cash
 		WHERE member_id = #{memberId}
 		AND cash_date = #{cashDate}
 		ORDER BY cash_no = #{cashNo}

@@ -6,7 +6,7 @@
 	
 	<!-- updateBoard -->
 	<update id="updateBoard" parameterType="com.gdu.cashbook.vo.Board">
-		UPDATE board SET
+		UPDATE cashbook_board SET
 			board_title = #{boardTitle},
 			board_content = #{boardContent},
 			board_date = NOW()
@@ -15,7 +15,7 @@
 	
 	<!-- deleteBoard -->
 	<delete id="deleteBoard" parameterType="int">
-		DELETE FROM board
+		DELETE FROM cashbook_board
 		WHERE board_no = #{boardNo}
 	</delete>
 	
@@ -28,7 +28,7 @@
 			board_title boardTitle,
 			board_content boardContent,
 			board_date boardDate
-		FROM board
+		FROM cashbook_board
 		WHERE board_no = #{boardNo}
 	</select>
 	
@@ -41,7 +41,7 @@
 			board_title boardTitle,
 			board_content boardContent,
 			board_date boardDate
-		FROM board
+		FROM cashbook_board
 		WHERE board_title LIKE CONCAT('%',#{board.boardTitle},'%')
 		LIMIT #{beginRow},#{rowPerPage}
 	</select>
@@ -49,13 +49,13 @@
 	<!-- 관리자용 게시판 리스트 COUNT -->
 	<select id="listAdminCount" resultType="int">
 		SELECT COUNT(*)
-		FROM board
+		FROM cashbook_board
 	</select>
 	
 	<!-- 관리자용 게시판 리스트 COUNT - 검색-->
 	<select id="listAdminCountSearch" resultType="int" parameterType="String">
 		SELECT COUNT(*)
-		FROM board
+		FROM cashbook_board
 		WHERE board_title = #{boardTitle}
 	</select>
 	
@@ -68,7 +68,7 @@
 			board_title boardTitle,
 			board_content boardContent,
 			board_date boardDate
-		FROM board
+		FROM cashbook_board
 		WHERE member_id = #{board.memberId}
 		OR admin_id = 'admin'
 		LIMIT #{beginRow},#{rowPerPage}
@@ -77,14 +77,14 @@
 	<!-- 일반 회원용 게시판 COUNT -->
 	<select id="listMemberCount" resultType="int" parameterType="com.gdu.cashbook.vo.Board">
 		SELECT COUNT(*)
-		FROM board
+		FROM cashbook_board
 		WHERE member_id = #{memberId}
 		OR admin_id = 'admin'
 	</select>
 	
 	<!-- 게시글 입력하기 -->
 	<insert id="insertBoard" parameterType="com.gdu.cashbook.vo.Board">
-		INSERT INTO board(
+		INSERT INTO cashbook_board(
 			member_id,
 			admin_id,
 			board_title,

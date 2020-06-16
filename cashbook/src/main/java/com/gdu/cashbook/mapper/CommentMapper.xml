@@ -5,7 +5,7 @@
 <mapper namespace="com.gdu.cashbook.mapper.CommentMapper">  
 	<!-- delete comment -->
 	<delete id="deleteComment" parameterType="int">
-		DELETE FROM comment
+		DELETE FROM cashbook_comment
 		WHERE comment_no = #{commentNo}
 	</delete>
 	
@@ -17,13 +17,13 @@
 			member_id memberId,
 			admin_id adminId,
 			comment_content commentContent
-		FROM comment
+		FROM cashbook_comment
 		WHERE board_no = #{boardNo}
 	</select>
 	
 	<!-- addComment -->
 	<insert id="insertComment" parameterType="com.gdu.cashbook.vo.Comment">
-		INSERT INTO comment(
+		INSERT INTO cashbook_comment(
 			board_no,
 			member_id,
 			admin_id,

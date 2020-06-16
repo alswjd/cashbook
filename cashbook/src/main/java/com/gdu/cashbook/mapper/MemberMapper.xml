@@ -7,7 +7,7 @@
 	<!-- 회원 이미지 가지고 오기 -->
 	<select id="selectMemberPic" parameterType="String" resultType="String">
 		SELECT member_pic
-		FROM member
+		FROM cashbook_member
 		WHERE member_id = #{memberId}
 	</select>
 	
@@ -17,7 +17,7 @@
 		2. 2번에서 입력한 pw를 메일로 전송
 	-->
 	<update id="updateMemberPw" parameterType="com.gdu.cashbook.vo.Member">
-		UPDATE member 
+		UPDATE cashbook_member 
 		SET member_pw = PASSWORD(#{memberPw})
 		WHERE member_id = #{memberId}
 		AND member_email = #{memberEmail}
@@ -27,7 +27,7 @@
 	<select id="selectMemberIdByMember" parameterType="com.gdu.cashbook.vo.Member" resultType="String">
 		SELECT
 			CONCAT(SUBSTRING(member_id,1,3),'****')
-		FROM member
+		FROM cashbook_member
 		WHERE member_name = #{memberName}
 		AND member_phone = #{memberPhone}
 		AND member_email = #{memberEmail}
@@ -35,14 +35,14 @@
 	
 	<!-- 회원탈퇴 -->
 	<delete id="deleteMember" parameterType="com.gdu.cashbook.vo.LoginMember">
-		DELETE FROM member
+		DELETE FROM cashbook_member
 		WHERE member_id = #{memberId}
 		AND member_pw = PASSWORD(#{memberPw})
 	</delete>
 	
 	<!-- 회원수정 -->
 	<update id="updateMember" parameterType="com.gdu.cashbook.vo.Member">
-		UPDATE member 
+		UPDATE cashbook_member 
 		SET member_addr = #{memberAddr},
 			member_phone = #{memberPhone},
 			member_email = #{memberEmail},
@@ -60,7 +60,7 @@
          member_addr as memberAddr,
          member_email as memberEmail,
          member_pic as memberPic
-      FROM member
+      FROM cashbook_member
       WHERE member_id= #{memberId} 
 	</select>
 	
@@ -68,9 +68,9 @@
 	<select id="selectMemberId" parameterType="String" resultType="String">
 		SELECT
 			member_id
-		FROM (SELECT member_id FROM member 
+		FROM (SELECT member_id FROM cashbook_member 
 			  UNION
-			  SELECT member_id FROM memberid) t
+			  SELECT member_id FROM cashbook_memberid) t
 		WHERE member_id = #{memberIdCheck}
 	</select>
 	
@@ -79,14 +79,14 @@
 		SELECT
 			member_id as memberId,
 			member_pw as memberPw
-		FROM member
+		FROM cashbook_member
 		WHERE member_id = #{memberId}
 		AND member_pw = PASSWORD(#{memberPw})
 	</select>
 	
 	<!-- insert member -->
 	<insert id="insertMember" parameterType="com.gdu.cashbook.vo.Member">
-		INSERT INTO member(
+		INSERT INTO cashbook_member(
 			member_id, 
 			member_pw, 
 			member_name, 

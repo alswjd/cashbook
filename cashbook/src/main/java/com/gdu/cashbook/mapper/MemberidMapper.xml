@@ -5,7 +5,7 @@
 <mapper namespace="com.gdu.cashbook.mapper.MemberidMapper">
 	<!-- 탈퇴한 멤버 아이디 -->
 	<insert id="insertMemberid" parameterType="com.gdu.cashbook.vo.Memberid">
-		INSERT INTO memberid(
+		INSERT INTO cashbook_memberid(
 			member_id
 		) VALUE(
 			#{memberId}
