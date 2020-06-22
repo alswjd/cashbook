@@ -76,9 +76,9 @@
 	<!-- 합계 -->
 	<select id="selectCashKindSum" resultType="int" parameterType="com.gdu.cashbook.vo.Cash">
 		SELECT
-         (SELECT IFNULL(SUM(cash_price) ,'0') FROM cash WHERE member_id = #{memberId} AND   cash_kind = '수입' AND   cash_date = #{cashDate})
+         (SELECT IFNULL(SUM(cash_price) ,'0') FROM cashbook_cash WHERE member_id = #{memberId} AND   cash_kind = '수입' AND   cash_date = #{cashDate})
          -
-         (SELECT IFNULL(SUM(cash_price) ,'0') FROM cash WHERE member_id = #{memberId} AND   cash_kind = '지출' AND   cash_date = #{cashDate})
+         (SELECT IFNULL(SUM(cash_price) ,'0') FROM cashbook_cash WHERE member_id = #{memberId} AND   cash_kind = '지출' AND   cash_date = #{cashDate})
       FROM dual
 	</select>
 	

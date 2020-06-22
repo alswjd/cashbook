@@ -68,7 +68,7 @@
 	<h3>comment List</h3>
 	<!-- 댓글입력창	 -->
 	<div class="container mt-3">
-	  <form method="post" action="/addComment" id="commentForm">
+	  <form method="post" th:action="@{/addComment}" id="commentForm">
 	    <div class="input-group mb-3">
 	      <input type="hidden" th:value="${b.boardNo}" name="boardNo">
 	      <input type="hidden" th:value="${session.loginMember?.memberId}" name="memberId">

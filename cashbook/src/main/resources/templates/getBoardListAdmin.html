@@ -35,7 +35,6 @@
 	  			<th>member id</th>
 	  			<th>admin id</th>
 	  			<th>board title</th>
-	  			<th>board content</th>
 	  			<th>board date</th>
 	  			<th>삭제/수정</th>
 	  		</tr>
@@ -47,7 +46,6 @@
   			<td>
             	<a th:href="@{/boardListDetail(boardNo=${b.boardNo})}"><span th:text="${b.boardTitle}"></span></a>
         	</td>
-  			<td th:text="${b.boardContent}"></td>
   			<td th:text="${b.boardDate}"></td>
   			<!-- 관리자의 로그인 값으로 로그인 되어 있을 때 자신의 글에만 수정 삭제 가능 -->
 			<td>
@@ -58,7 +56,7 @@
 			</td>
   		</tr>
   	</table><br><br>
-	<form method="get" action="/getBoardListAdmin" class="d-flex justify-content-center">
+	<form method="get"th:action="@{/getBoardListAdmin}" class="d-flex justify-content-center">
 		<input type="text" name="boardTitle" id="boardTitle" placeholder="board title">
 		<button type="submit" class="btn btn-secondary">검색</button>
 	</form>

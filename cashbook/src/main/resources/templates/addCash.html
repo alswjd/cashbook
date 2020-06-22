@@ -26,7 +26,7 @@
  </div>
   <div id="section">
   	<h3 align="center">수입/지출 입력</h3>
-	<form method="post" action="/addCash" id="insertForm">
+	<form method="post" th:action="@{/addCash}" id="insertForm">
 		<input type="hidden" th:value="${memberId}" name="memberId">
 		<table class="table">
 			<tr>

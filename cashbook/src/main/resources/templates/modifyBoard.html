@@ -25,7 +25,7 @@
     <div th:include="/include/menu::sidemenu" class="sidenav"></div>     
  </div>
   <div id="section">
-  <form method="post" action="/modifyBoard" id="updateForm">
+  <form method="post" th:action="@{/modifyBoard}" id="updateForm">
 	  	<table class="table">
 			<tr>
 				<td>board No</td>
