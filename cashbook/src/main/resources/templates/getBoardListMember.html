@@ -21,7 +21,8 @@
   <h1 align="center">QnA</h1><br><br><br>	
   <div>
   	 <a th:if="${currentPage} != 1" th:href="@{/getBoardListMember(currentPage=${currentPage -1})}" class="btn btn-primary">이전</a>&nbsp;&nbsp;&nbsp;&nbsp;
-  	 <a th:if="${currentPage} != ${lastPage}" th:href="@{/getBoardListMember(currentPage=${currentPage +1})}" class="btn btn-primary">다음</a>
+  	  <span th:text="'-'+${currentPage}+'-'"></span>&nbsp;&nbsp;&nbsp;&nbsp;
+  	 <a th:if="${currentPage} < ${lastPage}" th:href="@{/getBoardListMember(currentPage=${currentPage +1})}" class="btn btn-primary">다음</a>
   </div>
   <br>
   <div align="right" style="margin-right: 50px;">
@@ -52,7 +53,7 @@
 			<!-- 자신이 글을 작성한 것에만 삭제 수정 가능 -->
 			<td>
 				<th:block th:if="${b.memberId != null}" >
-					<a th:href="@{/removeBoard(boardNo=${b.boardNo})}">삭제</a>
+					<a th:href="@{/removeBoard(boardNo=${b.boardNo})}">삭제</a> /
 	  				<a th:href="@{/modifyBoard(boardNo=${b.boardNo})}">수정</a>
 				</th:block>
 			</td>

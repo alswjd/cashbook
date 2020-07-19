@@ -2,6 +2,7 @@ package com.gdu.cashbook.service;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,9 +52,24 @@ public class MemberService {
 		int row = memberMapper.updateMember(member);
 		
 		//2.파일 저장 
-		String path = "C:\\sts_files\\maven.1590576287954\\cashbook\\src\\main\\resources\\static\\upload"; //집
+		String path2 = "C:\\sts_files\\maven.1590576287954\\cashbook\\src\\main\\resources\\static\\upload"; //집
 				//"C:\\mj___\\stsSTS\\maven.1590367608582\\cashbook\\src\\main\\resources\\static\\upload"; //구디
-		File file = new File(path + memberPic);
+		
+
+		URL location = this.getClass().getResource("/static/upload/default.jpg");
+	    String path = location.getPath();
+	    String rightPath = path.substring(0, path.lastIndexOf("/"));
+	    System.out.println("경로 = " + rightPath);
+
+
+		File file = new File(rightPath +"\\"+ memberPic);
+		//기존의 파일 삭제
+		if(file.exists()) {
+			file.delete();
+			if(file.getName() != "default.jpg") {
+				file.delete();
+			}
+		}
 		
 		try {
 			mf.transferTo(file);
@@ -101,13 +117,24 @@ public class MemberService {
 		int row = memberMapper.insertMember(member);
 		
 		//2.파일 저장 - static에 upload 파일 경로
-		String path = "C:\\sts_files\\maven.1590576287954\\cashbook\\src\\main\\resources\\static\\upload"; //집
+		String path2 = "C:\\sts_files\\maven.1590576287954\\cashbook\\src\\main\\resources\\static\\upload"; //집
 					//"C:\\mj___\\stsSTS\\maven.1590367608582\\cashbook\\src\\main\\resources\\static\\upload"; //구디
-		File file = new File(path + memberPic);
 		
+		
+
+		URL location = this.getClass().getResource("/static/upload/default.jpg");
+	    String path = location.getPath();
+	    String rightPath = path.substring(0, path.lastIndexOf("/"));
+	    System.out.println("경로 = " + rightPath);
+
+
+		File file = new File(rightPath +"\\"+ memberPic);
 		//기존의 파일 삭제
 		if(file.exists()) {
 			file.delete();
+			if(file.getName() != "default.jpg") {
+				file.delete();
+			}
 		}
 		
 		//새로 추가

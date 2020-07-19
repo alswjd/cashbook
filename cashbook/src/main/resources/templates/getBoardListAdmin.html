@@ -21,7 +21,8 @@
   <h1 align="center">QnA</h1><br><br><br>
   <div>
   	 <a th:if="${currentPage} != 1" th:href="@{/getBoardListAdmin(currentPage=${currentPage -1})}" class="btn btn-primary">이전</a>&nbsp;&nbsp;&nbsp;&nbsp;
-  	 <a th:if="${currentPage} != ${lastPage}" th:href="@{/getBoardListAdmin(currentPage=${currentPage +1})}" class="btn btn-primary">다음</a>
+  	 <span th:text="'-'+${currentPage}+'-'"></span>&nbsp;&nbsp;&nbsp;&nbsp;
+  	 <a th:if="${currentPage} < ${lastPage}" th:href="@{/getBoardListAdmin(currentPage=${currentPage +1})}" class="btn btn-primary">다음</a>
   </div>
   <br>
   <div align="right" style="margin-right: 50px;">
@@ -50,7 +51,7 @@
   			<!-- 관리자의 로그인 값으로 로그인 되어 있을 때 자신의 글에만 수정 삭제 가능 -->
 			<td>
 				<th:block th:if="${b.adminId != null}" >
-					<a th:href="@{/removeBoard(boardNo=${b.boardNo})}">삭제</a>
+					<a th:href="@{/removeBoard(boardNo=${b.boardNo})}">삭제</a> /
 	  				<a th:href="@{/modifyBoard(boardNo=${b.boardNo})}">수정</a>
 				</th:block>
 			</td>

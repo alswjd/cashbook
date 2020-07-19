@@ -52,12 +52,15 @@ public class BoardService {
 		}else {
 			totalRow = boardMapper.listAdminCountSearch(boardTitle);
 		}
-		
+		System.out.println(totalRow + "totalRow");
+		 
 		int lastPage = totalRow / rowPerPage ;
 		
 		if((totalRow / rowPerPage) != 0) {
 			lastPage += 1;
 		}
+		
+		System.out.println(lastPage + "lastPage");
 		
 		map.put("lastPage", lastPage);
 		

@@ -181,7 +181,7 @@ public class BoardController {
 		
 		System.out.println(boardTitle +"<--검색");
 		
-		int rowPerPage = 8;
+		int rowPerPage = 5;
 		int beginRow = (currentPage -1)*rowPerPage;
 		
 		//list
@@ -210,7 +210,7 @@ public class BoardController {
 		Board board = new Board();
 		board.setMemberId(loginMember);
 		
-		int rowPerPage = 8;
+		int rowPerPage = 5;
 		int beginRow = (currentPage - 1)*rowPerPage;
 		
 		//list
